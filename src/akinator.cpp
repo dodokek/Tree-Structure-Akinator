@@ -19,6 +19,12 @@ int main()
     PrintPostOrder (root, tree_data);
     fprintf (tree_data, "\n");
 
+    
+    //-----------------------------------
+
+    GuessTheNode (root);
+
+    //-----------------------------------
     DrawTree (root);
 
     DestructNode (root);
@@ -49,7 +55,7 @@ node* DestructNode (node* root)
 }
 
 
-node* InsertNode (const char name[], node* parent, int position)
+node* InsertNode (char name[], node* parent, int position)
 {
     node* new_node = CreateNewNode();
     
@@ -95,6 +101,62 @@ node* FindNode (node* cur_node, const char name[])
 
     return nullptr;
 }
+
+
+//------------------------Play mode-----------------------
+
+int GuessTheNode (node* cur_node)
+{
+    int ans = -1;
+    
+    if (!cur_node->left && !cur_node->right) 
+    {
+        printf ("Ben, you guessed %s?\n", cur_node->name);
+        scanf ("%d", &ans);
+
+        if (ans == 1) 
+        {
+            printf ("Fuck yea\n");
+        }
+        else
+        { 
+            node* new_obj = CreateNewNode();
+            node* new_question = CreateNewNode();
+
+            printf ("Who it was? \n");
+            scanf ("%s", new_obj->name);
+
+            printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
+            scanf ("%s", new_question->name);
+
+            node* top_node = cur_node->parent;
+            cur_node->parent = new_question;
+
+            if (top_node->left == cur_node) top_node->left = new_question;
+            else { top_node->right = new_question; }
+            
+            new_question->parent = top_node;
+            new_question->left   = new_obj;
+            new_question->right  = cur_node;
+
+            new_obj->parent = new_question;
+
+            printf ("Objectf %s was added to base\n", new_obj->name);
+        }
+    }
+    else 
+    {
+        printf ("Does you character %s?\n", cur_node->name);
+        scanf ("%d", &ans);
+
+        if (ans == 1) GuessTheNode   (cur_node->left);
+        else          { GuessTheNode (cur_node->right); }
+    }
+
+    return 0;
+}
+
+//------------------------Play mode-----------------------
 
 
 void DumpTree (node* node)
@@ -213,6 +275,8 @@ node* CreateNewNode ()
     new_node->left   = nullptr;
     new_node->right  = nullptr;
     new_node->parent = nullptr;
+
+    new_node->name = (char*) calloc (MAX_NODE_NAME_LEN, sizeof (char)); 
 
     return new_node;
 }

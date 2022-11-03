@@ -10,6 +10,10 @@
 
     Node5[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="5"] 
  
+Nodefucking[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="fucking"] 
+ 
+Nodecum[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="cum"] 
+ 
 Node2[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="2"] 
  
 Node8[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="8"] 
@@ -18,7 +22,9 @@ Node6[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightbl
  
 Node10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="10"] 
  
-Node5->Node2
+Node5->Nodefucking
+Nodefucking->Nodecum
+Nodefucking->Node2
 Node5->Node8
 Node8->Node6
 Node8->Node10

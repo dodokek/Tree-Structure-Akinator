@@ -2,13 +2,24 @@
 
 int main()
 {
-    node* root = CreateTreeRoot ("Letherman");
+    FILE* tree_data = get_file ("data/tree.txt", "rw+");
 
-    node* billy = InsertNode ("Billy", root);
-    InsertNode ("Van", root, RIGHT);
-    node* van = FindNode (root, "Van");
-    InsertNode ("Darkholm", van);
+    node* root = CreateTreeRoot ("5");
+
+    node* n_2 = InsertNode ("2", root);
+    InsertNode ("8", root, RIGHT);
+    
+    node* n_8 = FindNode (root, "8");
+    InsertNode ("10", n_8, RIGHT);
+    InsertNode ("6", n_8);
     DumpTree (root);
+
+    PrintPreOrder (root, tree_data);
+    fprintf (tree_data, "\n");
+    PrintPostOrder (root, tree_data);
+    fprintf (tree_data, "\n");
+
+    DrawTree (root);
 
     DestructNode (root);
 }
@@ -88,8 +99,6 @@ node* FindNode (node* cur_node, const char name[])
 
 void DumpTree (node* node)
 {
-
-    
     printf ("Ptr[%p]", node);
     printf ("\tNode %s: left %p, right %p, parent %p\n",
             node->name, node->left,
@@ -99,8 +108,101 @@ void DumpTree (node* node)
     if (node->right) DumpTree (node->right);
 
     return;
-    
 }
+
+
+int PrintPreOrder (node* node, FILE* tree_data)
+{
+    fprintf (tree_data, "{ %s ", node->name);
+    if (node->left)  PrintPreOrder (node->left,  tree_data);
+    if (node->right) PrintPreOrder (node->right, tree_data);
+    fprintf (tree_data, "}");
+
+    return 1;
+}
+
+
+int PrintPostOrder (node* node, FILE* tree_data)
+{
+    if (node->left)  PrintPreOrder (node->left,  tree_data);
+    if (node->right) PrintPreOrder (node->right, tree_data);
+    fprintf (tree_data, "{ %s ", node->name);
+    fprintf (tree_data, "}");
+
+    return 1;
+} 
+
+
+#define _print(...) fprintf (dot_file, __VA_ARGS__)
+
+void DrawTree (node* root)
+{
+    FILE* dot_file = get_file ("data/graph.dot", "w+");
+    
+    // Writing header info
+    const char header[] = R"(
+    digraph g {
+        dpi      = 200;
+        fontname = "Comic Sans MS";
+        fontsize = 20;
+        rankdir   =  TB;
+        edge [color = darkgrey, arrowhead = onormal, arrowsize = 1, penwidth = 1.2]
+        graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
+        style = "rounded, filled",color = green, penwidth = 2]
+
+    )";
+    
+    _print (header);
+
+    InitGraphvisNode (root, dot_file);
+
+    RecursDrawConnections (root, dot_file);
+
+    _print ("}\n");
+    
+    // Executing dotfile and printing an image
+
+    fclose (dot_file);
+
+    system ("dot -Tpng data/graph.dot -o data/pretty_tree.png");
+
+    return;
+}
+
+
+void InitGraphvisNode (node* node, FILE* dot_file)   // Recursivly initialises every node 
+{
+    _print ("Node%s[shape=rectangle, color=\"red\", width=0.2, style=\"filled\","
+            "fillcolor=\"lightblue\", label=\"%s\"] \n \n",
+            node->name, node->name);
+    
+    if (node->left) InitGraphvisNode (node->left, dot_file);
+    if (node->right) InitGraphvisNode (node->right, dot_file);
+
+    return;
+}
+
+
+void RecursDrawConnections (node* node, FILE* dot_file)
+{
+    
+
+    if (node->left)
+    {
+        _print ("Node%s->Node%s\n", node->name, node->left->name);
+        RecursDrawConnections (node->left, dot_file);
+    } 
+    if (node->right)
+    {
+        _print ("Node%s->Node%s\n", node->name, node->right->name);
+        RecursDrawConnections (node->right, dot_file);
+    } 
+
+    return;
+}
+
+
+#undef _print
 
 
 node* CreateNewNode ()

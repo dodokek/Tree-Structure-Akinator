@@ -1,6 +1,9 @@
 #ifndef AKINATOR_H
 #define AKINATOR
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "fileUtils.h"
 
 
@@ -14,6 +17,11 @@ enum Positions
     RIGHT,
 };
 
+
+enum MaxLens
+{
+    MAX_IMG_SRC_LEN = 100,
+};
 //-----------------------------------------------
 
 
@@ -33,6 +41,16 @@ node* InsertNode (const char name[], node* parent, int position = LEFT);
 node* CreateNewNode ();
 
 void DumpTree (node* root);
+
+void DrawTree (node* root);
+
+int PrintPreOrder (node* node, FILE* tree_data);
+
+int PrintPostOrder (node* node, FILE* tree_data);
+
+void InitGraphvisNode (node* node, FILE* dot_file);
+
+void RecursDrawConnections (node* node, FILE* dot_file);
 
 node* FindNode (node* cur_node, const char name[]);
 

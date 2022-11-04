@@ -2,23 +2,13 @@
 
 int main()
 {
-    FILE* tree_data = get_file ("data/tree.txt", "w+");
+    FILE* tree_data = get_file ("data/tree.txt", "r");
 
-    node* root = CreateTreeRoot ("5");
+    node* root = BuildTree (tree_data);
 
-    node* n_2 = InsertNode ("2", root);
-    InsertNode ("8", root, RIGHT);
-    
-    node* n_8 = FindNode (root, "8");
-    node* n_10 = InsertNode ("10", n_8, RIGHT);
-    InsertNode ("6", n_8);
     DumpTree (root);
 
-    PrintPreOrder (root, tree_data);
-    fprintf (tree_data, "\n");
-
-    PrintObject (n_10);
-
+    PrintObject (FindNode (root, "10"));
     
     // //-----------------------------------
 
@@ -26,7 +16,9 @@ int main()
 
     // //-----------------------------------
 
-    // DrawTree (root);
+    DumpTree (root);
+
+    DrawTree (root);
 
     DestructNode (root);
 }
@@ -175,7 +167,6 @@ int GuessTheNode (node* cur_node)
 //------------------------Play mode-----------------------
 
 
-
 //------------------------Object find mode----------------
 
 void PrintObject (node* node_to_print)
@@ -205,6 +196,8 @@ void GetPapa (node* cur_node)
 
 void DumpTree (node* node)
 {
+    assert (node);
+
     printf ("Ptr[%p]", node);
     printf ("\tNode %s: left %p, right %p, parent %p\n",
             node->name, node->left,
@@ -310,6 +303,69 @@ void RecursDrawConnections (node* node, FILE* dot_file)
 
 //------------------------Dump----------------------------
 
+//------------------------Tree builder--------------------
+
+node* BuildTree (FILE* tree_info)
+{
+    char* buffer = (char*) calloc (MAX_BUFFER_SIZE, sizeof (char));
+    char* buffer_begin = buffer;
+
+    fgets (buffer, MAX_BUFFER_SIZE, tree_info);
+
+    buffer += OFFSET;  // skipping '{ '
+
+    node* root = CreateNewNode();
+    sscanf (buffer, "%s", root->name);
+    printf ("Root: %s \n", root->name);
+
+    buffer += strlen (root->name) + 1; // skipping name and space
+    if (*buffer == '}') return root;
+    else 
+    {
+        root->left  = RecBuildNode (&buffer);
+        root->left->parent = root;
+
+        root->right = RecBuildNode (&buffer);
+        root->right->parent = root;
+    }
+
+    free (buffer_begin);
+    printf ("\nexiting");
+
+    return root;
+}
+
+
+node* RecBuildNode (char** buffer)
+{
+    *buffer += OFFSET;
+
+    node* new_node = CreateNewNode();
+    sscanf (*buffer, "%s", new_node->name);
+
+    printf (new_node->name);
+
+    *buffer += strlen (new_node->name) + 1;
+
+    if (**buffer == '}')
+    {
+        *buffer += OFFSET; // Skipping ' { '
+        return new_node;
+    }
+    else
+    {
+        new_node->left  = RecBuildNode (buffer);
+        new_node->left->parent = new_node;
+
+        new_node->right = RecBuildNode (buffer);
+        new_node->right->parent = new_node;
+    }
+
+    return new_node;
+}
+
+
+//------------------------Tree builder--------------------
 
 
 

@@ -22,6 +22,8 @@ enum Positions
 enum Sizes
 {
     MAX_IMG_SRC_LEN = 100,
+    MAX_BUFFER_SIZE = 1000,
+    OFFSET = 2,
     STACK_INIT_CAP = 5,
     MAX_NODE_NAME_LEN = 30,
 };
@@ -73,6 +75,10 @@ void InitGraphvisNode (node* node, FILE* dot_file);
 void RecursDrawConnections (node* node, FILE* dot_file);
 
 node* FindNode (node* cur_node, const char name[]);
+
+node* BuildTree (FILE* tree_info);
+
+node* RecBuildNode (char** buffer);
 
 node* DestructNode (node* root);
 

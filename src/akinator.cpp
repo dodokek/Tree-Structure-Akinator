@@ -3,24 +3,27 @@
 int main()
 {
     FILE* tree_data = get_file ("data/tree.txt", "r");
-
     node* root = BuildTree (tree_data);
+    fclose (tree_data);
 
-    DumpTree (root);
+    // DumpTree (root);
 
     PrintObject (FindNode (root, "10"));
     
-    // //-----------------------------------
+    //-----------------------------------
 
-    // GuessTheNode (root);
+    GuessTheNode (root);
 
-    // //-----------------------------------
+    //-----------------------------------
 
-    DumpTree (root);
-
+    // DumpTree (root);
     DrawTree (root);
 
+    tree_data = get_file ("data/tree.txt", "w+");
+    PrintPreOrder (root, tree_data);
+
     DestructNode (root);
+    fclose (tree_data);
 }
 
 
@@ -215,7 +218,7 @@ int PrintPreOrder (node* node, FILE* tree_data)
     fprintf (tree_data, "{ %s ", node->name);
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "}");
+    fprintf (tree_data, "} ");
 
     return 1;
 }
@@ -338,7 +341,7 @@ node* BuildTree (FILE* tree_info)
 
 node* RecBuildNode (char** buffer)
 {
-    *buffer += OFFSET;
+    while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
 
     node* new_node = CreateNewNode();
     sscanf (*buffer, "%s", new_node->name);

@@ -2,7 +2,7 @@
 
 int main()
 {
-    FILE* tree_data = get_file ("data/tree.txt", "rw+");
+    FILE* tree_data = get_file ("data/tree.txt", "w+");
 
     node* root = CreateTreeRoot ("5");
 
@@ -10,23 +10,23 @@ int main()
     InsertNode ("8", root, RIGHT);
     
     node* n_8 = FindNode (root, "8");
-    InsertNode ("10", n_8, RIGHT);
+    node* n_10 = InsertNode ("10", n_8, RIGHT);
     InsertNode ("6", n_8);
     DumpTree (root);
 
     PrintPreOrder (root, tree_data);
     fprintf (tree_data, "\n");
-    PrintPostOrder (root, tree_data);
-    fprintf (tree_data, "\n");
+
+    PrintObject (n_10);
 
     
-    //-----------------------------------
+    // //-----------------------------------
 
-    GuessTheNode (root);
+    // GuessTheNode (root);
 
-    //-----------------------------------
+    // //-----------------------------------
 
-    DrawTree (root);
+    // DrawTree (root);
 
     DestructNode (root);
 }
@@ -39,6 +39,21 @@ node* CreateTreeRoot (char name[])
     root->name = name;
 
     return root;
+}
+
+
+node* CreateNewNode ()
+{
+    node* new_node = (node*) calloc (1, sizeof (node));
+    if (!new_node) return nullptr;
+
+    new_node->left   = nullptr;
+    new_node->right  = nullptr;
+    new_node->parent = nullptr;
+
+    new_node->name = (char*) calloc (MAX_NODE_NAME_LEN, sizeof (char)); 
+
+    return new_node;
 }
 
 
@@ -165,10 +180,29 @@ int GuessTheNode (node* cur_node)
 
 void PrintObject (node* node_to_print)
 {
+    printf ("Characteristics of object %s:", node_to_print->name);
+    GetPapa (node_to_print->parent);
+    printf ("%s.\n", node_to_print->name);  
+
+    return;
+}
+
+
+void GetPapa (node* cur_node)
+{
+    if (cur_node->parent) GetPapa (cur_node->parent);
+
+    printf ("%s->", cur_node->name);
+
+    return;
 
 }
 
 //------------------------Object find mode----------------
+
+
+//------------------------Dump----------------------------
+
 void DumpTree (node* node)
 {
     printf ("Ptr[%p]", node);
@@ -257,8 +291,6 @@ void InitGraphvisNode (node* node, FILE* dot_file)   // Recursivly initialises e
 
 void RecursDrawConnections (node* node, FILE* dot_file)
 {
-    
-
     if (node->left)
     {
         _print ("Node%p->Node%p\n", node, node->left);
@@ -276,17 +308,9 @@ void RecursDrawConnections (node* node, FILE* dot_file)
 
 #undef _print
 
+//------------------------Dump----------------------------
 
-node* CreateNewNode ()
-{
-    node* new_node = (node*) calloc (1, sizeof (node));
-    if (!new_node) return nullptr;
 
-    new_node->left   = nullptr;
-    new_node->right  = nullptr;
-    new_node->parent = nullptr;
 
-    new_node->name = (char*) calloc (MAX_NODE_NAME_LEN, sizeof (char)); 
 
-    return new_node;
-}
+

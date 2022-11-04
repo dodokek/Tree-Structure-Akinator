@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "fileUtils.h"
-#include "stack.h"
+// #include "stack.h"
 
 //-----------------------------------------------
 
@@ -50,7 +50,13 @@ node* InsertNode (char name[], node* parent, int position = LEFT);
 
 node* CreateNewNode ();
 
+node* CreateTreeRoot (char name[]);
+
 int GuessTheNode (node* node);
+
+void PrintObject (node* node_to_print);
+
+void GetPapa (node* cur_node);
 
 void DumpTree (node* root);
 
@@ -68,9 +74,6 @@ void RecursDrawConnections (node* node, FILE* dot_file);
 
 node* FindNode (node* cur_node, const char name[]);
 
-node* CreateTreeRoot (char name[]);
-
 node* DestructNode (node* root);
-
 
 #endif

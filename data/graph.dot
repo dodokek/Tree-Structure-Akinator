@@ -8,24 +8,24 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node5[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="5"] 
+    Node0000000000e524b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="5"] 
  
-Nodefucking[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="fucking"] 
+Node0000000000e57460[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="sucks"] 
  
-Nodecum[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="cum"] 
+Node0000000000e52690[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="bebra"] 
  
-Node2[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="2"] 
+Node0000000000e52510[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="2"] 
  
-Node8[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="8"] 
+Node0000000000e52570[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="8"] 
  
-Node6[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="6"] 
+Node0000000000e52630[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="6"] 
  
-Node10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="10"] 
+Node0000000000e525d0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="10"] 
  
-Node5->Nodefucking
-Nodefucking->Nodecum
-Nodefucking->Node2
-Node5->Node8
-Node8->Node6
-Node8->Node10
+Node0000000000e524b0->Node0000000000e57460
+Node0000000000e57460->Node0000000000e52690
+Node0000000000e57460->Node0000000000e52510
+Node0000000000e524b0->Node0000000000e52570
+Node0000000000e52570->Node0000000000e52630
+Node0000000000e52570->Node0000000000e525d0
 }

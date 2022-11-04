@@ -25,6 +25,7 @@ int main()
     GuessTheNode (root);
 
     //-----------------------------------
+
     DrawTree (root);
 
     DestructNode (root);
@@ -123,11 +124,11 @@ int GuessTheNode (node* cur_node)
             node* new_obj = CreateNewNode();
             node* new_question = CreateNewNode();
 
-            printf ("Who it was? \n");
-            scanf ("%s", new_obj->name);
-
+            printf ("Who it was?\n");
+            scanf("%s", new_obj->name);
+            
             printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
-            scanf ("%s", new_question->name);
+            scanf("%s", new_question->name);
 
             node* top_node = cur_node->parent;
             cur_node->parent = new_question;
@@ -159,6 +160,15 @@ int GuessTheNode (node* cur_node)
 //------------------------Play mode-----------------------
 
 
+
+//------------------------Object find mode----------------
+
+void PrintObject (node* node_to_print)
+{
+
+}
+
+//------------------------Object find mode----------------
 void DumpTree (node* node)
 {
     printf ("Ptr[%p]", node);
@@ -234,9 +244,9 @@ void DrawTree (node* root)
 
 void InitGraphvisNode (node* node, FILE* dot_file)   // Recursivly initialises every node 
 {
-    _print ("Node%s[shape=rectangle, color=\"red\", width=0.2, style=\"filled\","
+    _print ("Node%p[shape=rectangle, color=\"red\", width=0.2, style=\"filled\","
             "fillcolor=\"lightblue\", label=\"%s\"] \n \n",
-            node->name, node->name);
+            node, node->name);
     
     if (node->left) InitGraphvisNode (node->left, dot_file);
     if (node->right) InitGraphvisNode (node->right, dot_file);
@@ -251,12 +261,12 @@ void RecursDrawConnections (node* node, FILE* dot_file)
 
     if (node->left)
     {
-        _print ("Node%s->Node%s\n", node->name, node->left->name);
+        _print ("Node%p->Node%p\n", node, node->left);
         RecursDrawConnections (node->left, dot_file);
     } 
     if (node->right)
     {
-        _print ("Node%s->Node%s\n", node->name, node->right->name);
+        _print ("Node%p->Node%p\n", node, node->right);
         RecursDrawConnections (node->right, dot_file);
     } 
 

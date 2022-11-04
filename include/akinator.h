@@ -5,11 +5,10 @@
 #include <stdio.h>
 #include <windows.h>
 #include <Mmsystem.h>
+#include <string.h>
 
 #include "fileUtils.h"
-
-#pragma comment(lib, "Winmm.lib")
-
+#include "stack.h"
 
 //-----------------------------------------------
 
@@ -60,6 +59,8 @@ void DrawTree (node* root);
 int PrintPreOrder (node* node, FILE* tree_data);
 
 int PrintPostOrder (node* node, FILE* tree_data);
+
+void PrintObject (node* node_to_print);
 
 void InitGraphvisNode (node* node, FILE* dot_file);
 

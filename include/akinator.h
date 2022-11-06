@@ -25,7 +25,7 @@ enum Sizes
     MAX_BUFFER_SIZE = 1000,
     OFFSET = 2,
     STACK_INIT_CAP = 5,
-    MAX_NODE_NAME_LEN = 30,
+    MAX_NAME_LEN = 100,
 };
 
 
@@ -56,7 +56,9 @@ node* CreateTreeRoot (char name[]);
 
 int GuessTheNode (node* node);
 
-void PrintObject (node* node_to_print);
+char* GetInput (char* buffer);
+
+void AppendNewObject (node* cur_node);
 
 void GetPapa (node* cur_node);
 
@@ -81,5 +83,8 @@ node* BuildTree (FILE* tree_info);
 node* RecBuildNode (char** buffer);
 
 node* DestructNode (node* root);
+
+void ClearBuffer();
+
 
 #endif

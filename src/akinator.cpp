@@ -15,15 +15,15 @@ int main()
     GuessTheNode (root);
 
     //-----------------------------------
+    tree_data = get_file ("data/tree.txt", "w+");
+    PrintPreOrder (root, tree_data);
+    fclose (tree_data);
 
     // DumpTree (root);
     DrawTree (root);
 
-    tree_data = get_file ("data/tree.txt", "w+");
-    PrintPreOrder (root, tree_data);
 
     DestructNode (root);
-    fclose (tree_data);
 }
 
 
@@ -46,7 +46,7 @@ node* CreateNewNode ()
     new_node->right  = nullptr;
     new_node->parent = nullptr;
 
-    new_node->name = (char*) calloc (MAX_NODE_NAME_LEN, sizeof (char)); 
+    new_node->name = (char*) calloc (MAX_NAME_LEN, sizeof (char)); 
 
     return new_node;
 }
@@ -125,34 +125,10 @@ int GuessTheNode (node* cur_node)
         printf ("Ben, you guessed %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
-        if (ans == 1) 
-        {
-            printf ("Fuck yea\n");
-        }
+        if (ans == 1) printf ("Fuck yea\n");
         else
-        { 
-            node* new_obj = CreateNewNode();
-            node* new_question = CreateNewNode();
-
-            printf ("Who it was?\n");
-            scanf("%s", new_obj->name);
-            
-            printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
-            scanf("%s", new_question->name);
-
-            node* top_node = cur_node->parent;
-            cur_node->parent = new_question;
-
-            if (top_node->left == cur_node) top_node->left = new_question;
-            else { top_node->right = new_question; }
-            
-            new_question->parent = top_node;
-            new_question->left   = new_obj;
-            new_question->right  = cur_node;
-
-            new_obj->parent = new_question;
-
-            printf ("Objectf %s was added to base\n", new_obj->name);
+        {
+            AppendNewObject (cur_node);
         }
     }
     else 
@@ -160,11 +136,66 @@ int GuessTheNode (node* cur_node)
         printf ("Does you character %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
-        if (ans == 1) GuessTheNode   (cur_node->left);
-        else          { GuessTheNode (cur_node->right); }
+        if (ans == 1) GuessTheNode (cur_node->left);
+        else
+        {
+            GuessTheNode (cur_node->right); 
+        }
     }
 
     return 0;
+}
+
+
+void AppendNewObject (node* cur_node)
+{
+    node* new_obj = CreateNewNode();
+    node* new_question = CreateNewNode();
+
+    printf ("Who it was?\n");
+    GetInput (new_obj->name);
+
+    printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
+    GetInput (new_question->name);
+    
+    node* top_node = cur_node->parent;
+    cur_node->parent = new_question;
+
+    if (top_node->left == cur_node) top_node->left = new_question;
+    else { top_node->right = new_question; }
+    
+    new_question->parent = top_node;
+    new_question->left   = new_obj;
+    new_question->right  = cur_node;
+
+    new_obj->parent = new_question;
+
+    printf ("Objectf %s was added to base\n", new_obj->name);
+}
+
+
+char* GetInput (char* buffer)
+{
+    char* raw_input = fgets(buffer, MAX_NAME_LEN, stdin);
+    if (raw_input == NULL) 
+    {
+        printf ("Bad input");
+        return NULL;
+    }
+
+    buffer[strlen(buffer) - 1] = '\0';
+
+    while (strlen(buffer) == 0) 
+    {
+        printf("\n Invalid name, write it again. \n\n");
+
+        raw_input = fgets(buffer, MAX_NAME_LEN, stdin);
+        if (raw_input == NULL) return NULL;
+
+        buffer[strlen(buffer)] = '\0';
+    }
+
+    return buffer;
 }
 
 //------------------------Play mode-----------------------
@@ -371,5 +402,11 @@ node* RecBuildNode (char** buffer)
 //------------------------Tree builder--------------------
 
 
+void ClearBuffer()
+{
+    while (getchar() != '\n') ;
+
+    return;
+}
 
 

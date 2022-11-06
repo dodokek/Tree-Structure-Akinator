@@ -8,7 +8,7 @@ int main()
 
     // DumpTree (root);
 
-    PrintObject (FindNode (root, "10"));
+    // PrintObject (FindNode (root, "10"));
     
     //-----------------------------------
 
@@ -319,7 +319,7 @@ node* BuildTree (FILE* tree_info)
 
     node* root = CreateNewNode();
     sscanf (buffer, "%s", root->name);
-    printf ("Root: %s \n", root->name);
+    // printf ("Root: %s \n", root->name);
 
     buffer += strlen (root->name) + 1; // skipping name and space
     if (*buffer == '}') return root;
@@ -333,7 +333,7 @@ node* BuildTree (FILE* tree_info)
     }
 
     free (buffer_begin);
-    printf ("\nexiting");
+    // printf ("\nexiting");
 
     return root;
 }
@@ -346,7 +346,7 @@ node* RecBuildNode (char** buffer)
     node* new_node = CreateNewNode();
     sscanf (*buffer, "%s", new_node->name);
 
-    printf (new_node->name);
+    // printf (new_node->name);
 
     *buffer += strlen (new_node->name) + 1;
 

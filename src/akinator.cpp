@@ -209,39 +209,42 @@ void PrintObject (node* node_to_print)
 {
     printf ("Characteristics of object %s:", node_to_print->name);
     
-    Stack ancestors = {};
-    StackCtor (&ancestors, 10);
+    Stack ancestors = BuildAncestorsStack (node_to_print);    
 
-    StackPush (&ancestors, node_to_print);
-    
-    GetPapa (node_to_print->parent, &ancestors);
+    node* tmp_node = nullptr;
 
-    // StackDump (&ancestors);
     while (ancestors.size != 1)
     {
-        node* tmp_node = (node*) StackPop (&ancestors);
-        printf ("->%s", tmp_node->name);
+        tmp_node = (node*) StackPop (&ancestors);
+        printf ("%s->", tmp_node->name);
     }
 
-    StackDtor (&ancestors);
+    tmp_node = (node*) StackPop (&ancestors);
+    printf ("%s.\n", tmp_node->name);
+
     return;
 }
 
 
-Stack BuildAncestorsStack (node* root)
+Stack BuildAncestorsStack (node* cur_node)
 {
-
+    Stack ancestors = {};
+    StackCtor (&ancestors, 10);
+    StackPush (&ancestors, cur_node);
+    
+    AddAncestor (cur_node->parent, &ancestors);
+    
+    return ancestors;
 }
 
 
-void GetPapa (node* cur_node, Stack* ancestors)
+void AddAncestor (node* cur_node, Stack* ancestors)
 {
     StackPush (ancestors, cur_node);
 
-    if (cur_node->parent) GetPapa (cur_node->parent, ancestors);
+    if (cur_node->parent) AddAncestor (cur_node->parent, ancestors);
 
     return;
-
 }
 
 //------------------------Object find mode----------------

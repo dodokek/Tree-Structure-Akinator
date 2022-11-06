@@ -60,7 +60,7 @@ char* GetInput (char* buffer);
 
 void AppendNewObject (node* cur_node);
 
-void GetPapa (node* cur_node, Stack* ancestors);
+void AddAncestor (node* cur_node, Stack* ancestors);
 
 void DumpTree (node* root);
 
@@ -71,6 +71,10 @@ int PrintPreOrder (node* node, FILE* tree_data);
 int PrintPostOrder (node* node, FILE* tree_data);
 
 void PrintObject (node* node_to_print);
+
+Stack BuildAncestorsStack (node* cur_node);
+
+void AddAncestor (node* cur_node, Stack* ancestors);
 
 void InitGraphvisNode (node* node, FILE* dot_file);
 

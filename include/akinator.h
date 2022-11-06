@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "fileUtils.h"
-// #include "stack.h"
+#include "stack.h"
 
 //-----------------------------------------------
 
@@ -60,7 +60,7 @@ char* GetInput (char* buffer);
 
 void AppendNewObject (node* cur_node);
 
-void GetPapa (node* cur_node);
+void GetPapa (node* cur_node, Stack* ancestors);
 
 void DumpTree (node* root);
 

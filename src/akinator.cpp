@@ -8,11 +8,11 @@ int main()
 
     // DumpTree (root);
 
-    // PrintObject (FindNode (root, "10"));
+    PrintObject (FindNode (root, "lox"));
     
     //-----------------------------------
 
-    GuessTheNode (root);
+    // GuessTheNode (root);
 
     //-----------------------------------
     tree_data = get_file ("data/tree.txt", "w+");
@@ -208,18 +208,37 @@ char* GetInput (char* buffer)
 void PrintObject (node* node_to_print)
 {
     printf ("Characteristics of object %s:", node_to_print->name);
-    GetPapa (node_to_print->parent);
-    printf ("%s.\n", node_to_print->name);  
+    
+    Stack ancestors = {};
+    StackCtor (&ancestors, 10);
 
+    StackPush (&ancestors, node_to_print);
+    
+    GetPapa (node_to_print->parent, &ancestors);
+
+    // StackDump (&ancestors);
+    while (ancestors.size != 1)
+    {
+        node* tmp_node = (node*) StackPop (&ancestors);
+        printf ("->%s", tmp_node->name);
+    }
+
+    StackDtor (&ancestors);
     return;
 }
 
 
-void GetPapa (node* cur_node)
+Stack BuildAncestorsStack (node* root)
 {
-    if (cur_node->parent) GetPapa (cur_node->parent);
 
-    printf ("%s->", cur_node->name);
+}
+
+
+void GetPapa (node* cur_node, Stack* ancestors)
+{
+    StackPush (ancestors, cur_node);
+
+    if (cur_node->parent) GetPapa (cur_node->parent, ancestors);
 
     return;
 

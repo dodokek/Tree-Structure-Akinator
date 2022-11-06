@@ -76,6 +76,8 @@ Stack BuildAncestorsStack (node* cur_node);
 
 void AddAncestor (node* cur_node, Stack* ancestors);
 
+void CompareObjects (node* obj1, node* obj2);
+
 void InitGraphvisNode (node* node, FILE* dot_file);
 
 void RecursDrawConnections (node* node, FILE* dot_file);

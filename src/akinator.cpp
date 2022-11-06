@@ -8,8 +8,13 @@ int main()
 
     // DumpTree (root);
 
-    PrintObject (FindNode (root, "lox"));
-    
+    node* ya = FindNode (root, "ya");
+    PrintObject (ya);
+
+    node* Sanya = FindNode (root, "Arcadiy");
+    PrintObject (Sanya);
+
+    CompareObjects (ya, Sanya);
     //-----------------------------------
 
     // GuessTheNode (root);
@@ -113,8 +118,39 @@ node* FindNode (node* cur_node, const char name[])
     return nullptr;
 }
 
+//-----------------------Choosing the mode-------------------
 
-//------------------------Play mode-----------------------
+
+void StartGame (node* root)
+{
+    printf ("Welcome to Akinator, choose of of the following game modes\n",
+            "Guessing game - 1\n",
+            "Object listing - 2\n",
+            "Objects comparison - 3\n");
+    
+    while (true)
+    {
+        printf ("I am choosing: ");
+        char ans = -1;
+
+        ans = getchar();
+
+        switch (ans)
+        {
+        case :
+            /* code */
+            break;
+        
+        default:
+            break;
+        }
+    }
+}
+
+
+//-----------------------Choosing the mode. End--------------
+
+//------------------------Guessing mode-----------------------
 
 int GuessTheNode (node* cur_node)
 {
@@ -200,7 +236,7 @@ char* GetInput (char* buffer)
     return buffer;
 }
 
-//------------------------Play mode-----------------------
+//------------------------Guessing mode. End-----------------------
 
 
 //------------------------Object find mode----------------
@@ -247,7 +283,53 @@ void AddAncestor (node* cur_node, Stack* ancestors)
     return;
 }
 
-//------------------------Object find mode----------------
+//------------------------Object find mode. End-----------
+
+//------------------------Object Comparison---------------
+
+void CompareObjects (node* obj1, node* obj2)
+{
+    if (obj1 == obj2)
+    { 
+        printf ("Error. Comparison of the same object.");
+        return;
+    }
+
+    Stack FirstAnc  = BuildAncestorsStack (obj1);
+    Stack SecondAnc = BuildAncestorsStack (obj2);
+
+    while (FirstAnc.size != 1 && SecondAnc.size != 1)
+    {
+        node* trait1 = (node*) StackPop (&FirstAnc);
+        node* trait2 = (node*) StackPop (&SecondAnc);
+        if (trait1 == trait2)
+        {
+            printf ("Objects have in common trait: %s\n", trait1->name);
+        }
+        else
+        {
+            printf ("Objects have difference in traits: Node %s has %s, when Node %s has %s.\n",
+                    obj1->name, trait1->name, obj2->name, trait2->name);
+            return;
+        }
+    }
+
+    if (FirstAnc.size == 1 && SecondAnc.size == 1) printf ("Objects are exactly the same!\n");
+    else if (FirstAnc.size > SecondAnc.size)
+    {
+        node* additional_trait = (node*) StackPop (&FirstAnc);
+        printf ("Object %s has additional trait %s\n", obj1->name, additional_trait->name);
+    }
+    else if (FirstAnc.size < SecondAnc.size)
+    {
+        node* additional_trait = (node*) StackPop (&SecondAnc);
+        printf ("Object %s has additional trait %s\n", obj2->name, additional_trait->name);
+    }
+    
+    return;
+}
+
+//-----------------Object Comparison. End-----------------
 
 
 //------------------------Dump----------------------------

@@ -153,10 +153,12 @@ void AppendNewObject (node* cur_node)
     node* new_question = CreateNewNode();
 
     printf ("Who it was?\n");
-    GetInput (new_obj->name);
+    // GetInput (new_obj->name);
+    scanf ("%s", new_obj->name);
 
     printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
-    GetInput (new_question->name);
+    // GetInput (new_question->name);
+    scanf ("%s", new_question->name);
     
     node* top_node = cur_node->parent;
     cur_node->parent = new_question;
@@ -176,8 +178,8 @@ void AppendNewObject (node* cur_node)
 
 char* GetInput (char* buffer)
 {
-    char* raw_input = fgets(buffer, MAX_NAME_LEN, stdin);
-    if (raw_input == NULL) 
+    char* check_input = fgets(buffer, MAX_NAME_LEN, stdin);
+    if (check_input == NULL) 
     {
         printf ("Bad input");
         return NULL;
@@ -189,8 +191,8 @@ char* GetInput (char* buffer)
     {
         printf("\n Invalid name, write it again. \n\n");
 
-        raw_input = fgets(buffer, MAX_NAME_LEN, stdin);
-        if (raw_input == NULL) return NULL;
+        check_input = fgets(buffer, MAX_NAME_LEN, stdin);
+        if (check_input == NULL) return NULL;
 
         buffer[strlen(buffer)] = '\0';
     }
@@ -400,13 +402,5 @@ node* RecBuildNode (char** buffer)
 
 
 //------------------------Tree builder--------------------
-
-
-void ClearBuffer()
-{
-    while (getchar() != '\n') ;
-
-    return;
-}
 
 

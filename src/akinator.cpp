@@ -1,7 +1,18 @@
+#define TX_USE_SPEAK  // May the god save us.
+#include "TXLib.h"
+#define txSpeak(X)  txSpeak( "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\">"  \
+                    "<voice name=\"zh-CN-XiaomoNeural\">"                                                                 \
+                    X                                                                                                    \
+                    "</voice>"                                                                                           \
+                    "</speak>");            
+
+
 #include "akinator.h"
 
 int main()
 {
+    txSpeak ("You missed the door letherman");
+
     node* root = GetTreeRoot();
 
     StartGame (root);

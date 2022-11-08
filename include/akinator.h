@@ -29,6 +29,16 @@ enum Sizes
 };
 
 
+enum PlayMode
+{
+    EXIT,
+    GUESS = 1,
+    LISTING,
+    COMPARISON,
+    TO_INT_OFFSET = 48,
+};
+
+
 //-----------------------------------------------
 
 
@@ -48,19 +58,25 @@ struct node
     mciSendString("play mp3", NULL, 0, NULL);                                       
 
 
+void StartGame (node* root);
+
+node* GetNodeFromUser (node* root);
+
+node* GetTreeRoot ();
+
+void SaveProgress (node* root);
+
 node* InsertNode (char name[], node* parent, int position = LEFT);
 
 node* CreateNewNode ();
 
-node* CreateTreeRoot (char name[]);
+node* InitTreeRoot (char name[]);
 
 int GuessTheNode (node* node);
 
 char* GetInput (char* buffer);
 
 void AppendNewObject (node* cur_node);
-
-void AddAncestor (node* cur_node, Stack* ancestors);
 
 void DumpTree (node* root);
 
@@ -88,7 +104,7 @@ node* BuildTree (FILE* tree_info);
 
 node* RecBuildNode (char** buffer);
 
-node* DestructNode (node* root);
+node* DestructTree (node* root);
 
 void ClearBuffer();
 

@@ -2,37 +2,30 @@
 
 int main()
 {
-    FILE* tree_data = get_file ("data/tree.txt", "r");
-    node* root = BuildTree (tree_data);
-    fclose (tree_data);
+    node* root = GetTreeRoot();
 
-    // DumpTree (root);
+    StartGame (root);
 
-    node* ya = FindNode (root, "ya");
-    PrintObject (ya);
+    SaveProgress(root);
 
-    node* Sanya = FindNode (root, "Arcadiy");
-    PrintObject (Sanya);
-
-    CompareObjects (ya, Sanya);
-    //-----------------------------------
-
-    // GuessTheNode (root);
-
-    //-----------------------------------
-    tree_data = get_file ("data/tree.txt", "w+");
-    PrintPreOrder (root, tree_data);
-    fclose (tree_data);
-
-    // DumpTree (root);
-    DrawTree (root);
-
-
-    DestructNode (root);
+    DestructTree (root);
 }
 
 
-node* CreateTreeRoot (char name[])
+
+node* GetTreeRoot ()
+{
+    FILE* tree_data = get_file ("data/tree.txt", "r");
+    
+    node* root = BuildTree (tree_data);
+    
+    fclose (tree_data);
+
+    return root;
+}
+
+
+node* InitTreeRoot (char name[])
 {
     node* root = CreateNewNode();
 
@@ -57,10 +50,10 @@ node* CreateNewNode ()
 }
 
 
-node* DestructNode (node* root)
+node* DestructTree (node* root)
 {
-    if (root->left)  DestructNode (root->left);
-    if (root->right) DestructNode (root->right);
+    if (root->left)  DestructTree (root->left);
+    if (root->right) DestructTree (root->right);
 
     root->name = nullptr;
     
@@ -123,28 +116,69 @@ node* FindNode (node* cur_node, const char name[])
 
 void StartGame (node* root)
 {
-    printf ("Welcome to Akinator, choose of of the following game modes\n",
-            "Guessing game - 1\n",
-            "Object listing - 2\n",
-            "Objects comparison - 3\n");
+    printf ("Welcome to Akinator, choose of of the following game modes\n"
+            "\tGuessing game - 1\n"
+            "\tObject listing - 2\n"
+            "\tObjects comparison - 3\n"
+            "\tType 0 to exit.\n");
     
-    while (true)
+    
+    bool is_exit = false;
+    while (!is_exit)
     {
         printf ("I am choosing: ");
-        char ans = -1;
+        int ans = -1;
 
+        fflush (stdin);
         ans = getchar();
 
-        switch (ans)
+        node* tmp_node_1 = nullptr;
+        node* tmp_node_2 = nullptr;
+
+        switch (ans - TO_INT_OFFSET)
         {
-        case :
-            /* code */
-            break;
-        
-        default:
-            break;
+            case GUESS:
+                GuessTheNode (root);
+                break;
+            
+            case LISTING:
+                tmp_node_1 = GetNodeFromUser (root);
+
+                if (tmp_node_1) PrintObject (tmp_node_1);
+            
+                break;
+
+            case COMPARISON:
+                tmp_node_1 = GetNodeFromUser (root);
+                tmp_node_2 = GetNodeFromUser (root);
+
+                if (tmp_node_1 && tmp_node_2)
+                    CompareObjects (tmp_node_1, tmp_node_2);
+                break;
+
+            case EXIT:
+                printf ("Thanks for playing\n");
+                is_exit = true;
+                break;
+
+            default:
+                printf ("Unknown command %d, try again.\n", ans - TO_INT_OFFSET);
+                break;
         }
     }
+}
+
+
+node* GetNodeFromUser (node* root)
+{
+    char tmp_name[MAX_NAME_LEN] = "";
+    printf ("Enter the name of the node: ");
+    scanf ("%s", tmp_name);
+
+    node* tmp_node = FindNode (root, tmp_name);
+    if (!tmp_node) printf ("There is no such node with name %s in the base!\n", tmp_name);
+    
+    return tmp_node;
 }
 
 
@@ -333,6 +367,15 @@ void CompareObjects (node* obj1, node* obj2)
 
 
 //------------------------Dump----------------------------
+
+void SaveProgress (node* root)
+{
+    FILE* tree_data = get_file ("data/tree.txt", "w+");
+    PrintPreOrder (root, tree_data);
+    fclose (tree_data);
+    DrawTree (root);
+}
+
 
 void DumpTree (node* node)
 {

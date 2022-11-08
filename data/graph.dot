@@ -8,60 +8,66 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node0000000000f824b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
+    Node00000000010524b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
  
-Node0000000000f82550[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SucksDick"] 
+Node0000000001052550[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SucksDick"] 
  
-Node0000000000f825f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="StudyInMAI"] 
+Node00000000010525f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="StudyInMAI"] 
  
-Node0000000000f82690[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="FiveInchDick"] 
+Node0000000001052690[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="FiveInchDick"] 
  
-Node0000000000f826c0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="MishkFreddie"] 
+Node00000000010526c0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="MishkFreddie"] 
  
-Node0000000000f826f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Dolbaeb"] 
+Node0000000001057970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Dolbaeb"] 
  
-Node0000000000f879f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
+Node0000000001057a10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
  
-Node0000000000f87a90[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Govnovoder"] 
+Node0000000001057ab0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Govnovoder"] 
  
-Node0000000000f87b30[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="lox"] 
+Node0000000001057b50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="lox"] 
  
-Node0000000000f87bd0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="ya"] 
+Node0000000001057f60[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Ultra"] 
  
-Node0000000000f87c70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Krestena"] 
+Node0000000001058050[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Ded"] 
  
-Node0000000000f87d10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Arcadiy"] 
+Node0000000001057bf0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="ya"] 
  
-Node0000000000f87db0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="CumsAlot"] 
+Node0000000001057c90[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Krestena"] 
  
-Node0000000000f87e50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vitalik"] 
+Node0000000001057d30[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Arcadiy"] 
  
-Node0000000000f88270[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Coder"] 
+Node0000000001057dd0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="CumsAlot"] 
  
-Node0000000000f880c0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Roma"] 
+Node0000000001057e70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vitalik"] 
  
-Node0000000000f88120[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Joe"] 
+Node0000000001057ff0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Coder"] 
  
-Node0000000000f880f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Obama"] 
+Node0000000001058080[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Roma"] 
  
-Node0000000000f88150[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sashka"] 
+Node00000000010580b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Joe"] 
  
-Node0000000000f824b0->Node0000000000f82550
-Node0000000000f82550->Node0000000000f825f0
-Node0000000000f825f0->Node0000000000f82690
-Node0000000000f82690->Node0000000000f826c0
-Node0000000000f82690->Node0000000000f826f0
-Node0000000000f825f0->Node0000000000f879f0
-Node0000000000f82550->Node0000000000f87a90
-Node0000000000f87a90->Node0000000000f87b30
-Node0000000000f87b30->Node0000000000f87bd0
-Node0000000000f87b30->Node0000000000f87c70
-Node0000000000f87a90->Node0000000000f87d10
-Node0000000000f824b0->Node0000000000f87db0
-Node0000000000f87db0->Node0000000000f87e50
-Node0000000000f87db0->Node0000000000f88270
-Node0000000000f88270->Node0000000000f880c0
-Node0000000000f88270->Node0000000000f88120
-Node0000000000f88120->Node0000000000f880f0
-Node0000000000f88120->Node0000000000f88150
+Node00000000010581d0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Obama"] 
+ 
+Node0000000001058140[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sashka"] 
+ 
+Node00000000010524b0->Node0000000001052550
+Node0000000001052550->Node00000000010525f0
+Node00000000010525f0->Node0000000001052690
+Node0000000001052690->Node00000000010526c0
+Node0000000001052690->Node0000000001057970
+Node00000000010525f0->Node0000000001057a10
+Node0000000001052550->Node0000000001057ab0
+Node0000000001057ab0->Node0000000001057b50
+Node0000000001057b50->Node0000000001057f60
+Node0000000001057f60->Node0000000001058050
+Node0000000001057f60->Node0000000001057bf0
+Node0000000001057b50->Node0000000001057c90
+Node0000000001057ab0->Node0000000001057d30
+Node00000000010524b0->Node0000000001057dd0
+Node0000000001057dd0->Node0000000001057e70
+Node0000000001057dd0->Node0000000001057ff0
+Node0000000001057ff0->Node0000000001058080
+Node0000000001057ff0->Node00000000010580b0
+Node00000000010580b0->Node00000000010581d0
+Node00000000010580b0->Node0000000001058140
 }

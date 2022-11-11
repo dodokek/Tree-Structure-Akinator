@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <Mmsystem.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "fileUtils.h"
 #include "stack.h"
@@ -32,6 +33,7 @@ enum Sizes
     MAX_IMG_SRC_LEN = 100,
     STACK_INIT_CAP = 5,
     MAX_NAME_LEN = 100,
+    MAX_MESSAGE_LEN =1000,
 };
 
 
@@ -77,7 +79,7 @@ node* GetTreeRoot ();
 
 void SaveProgress (node* root);
 
-node* InsertNode (const char name[], node* parent, Positions position = LEFT);
+node* InsertNode (char name[], node* parent, Positions position = LEFT);
 
 node* CreateNewNode ();
 
@@ -92,6 +94,8 @@ void AddNode (node* cur_node);
 void DumpTree (node* root);
 
 void DrawTree (node* root);
+
+void SayWords (char* templ, ...);
 
 void PrintPreOrder (node* node, FILE* tree_data);
 

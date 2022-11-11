@@ -2,21 +2,10 @@
 
 #include "TXLib.h"
 
-/*
-#define txSpeak(X)  txSpeak( "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\">"  \
-                    "<voice name=\"zh-CN-XiaomoNeural\">"                                                                \
-                    X                                                                                                    \
-                    "</voice>"                                                                                           \
-                    "</speak>");   
-*/        
-
-
 #include "akinator.h"
 
 int main()
 {
-    txSpeak ("Ded, Nuhai bebru");
-
     node* root = GetTreeRoot();
 
     StartGame (root);
@@ -81,7 +70,7 @@ node* DestructTree (node* root)
 
 
 // Positions 
-node* InsertNode (const char name[], node* parent, Positions position)
+node* InsertNode (char name[], node* parent, Positions position)
 {
     node* new_node = CreateNewNode();
     
@@ -192,14 +181,13 @@ node* RecBuildNode (char** buffer)
 
 void StartGame (node* root)
 {
-    char greetings[] = "Welcome to Akinator, choose of of the following game modes\n",
-                     "\tGuessing game - 1\n",
-                     "\tObject listing - 2\n",
-                     "\tObjects comparison - 3\n",
-                     "\tType 0 to exit.\n";
+    char greetings[] = "Welcome to Akinator, choose of of the following game modes\n\
+                    \tGuessing game - 1\n\    
+                     \tObject listing - 2\n\
+                     \tObjects comparison - 3\n\
+                     \tType 0 to exit.\n";
     
-    txSpeak (greetings);
-    txSpeak ("Sniffing bebraaaaa!");
+    SayWords (greetings);
     
     bool is_exit = false;
 
@@ -254,7 +242,7 @@ node* GetNodeFromUser (node* root)
 {
     char tmp_name[MAX_NAME_LEN] = "";
 
-    printf ("Enter the name of the node: ");
+    SayWords ("Enter the name of the node: ");
     scanf ("%s", tmp_name);
 
     node* tmp_node = FindNode (root, tmp_name);
@@ -274,7 +262,7 @@ void GuessNode (node* cur_node)
     
     if (!cur_node->left && !cur_node->right) 
     {
-        printf ("Ben, you guessed %s?\n", cur_node->name);
+        SayWords ("Ben, you guessed %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
         if (GetAnswer() == YES) printf ("Fuck yea\n");
@@ -282,7 +270,7 @@ void GuessNode (node* cur_node)
     }
     else 
     {
-        printf ("Does you character %s?\n", cur_node->name);
+        SayWords ("Does you character %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
         if (GetAnswer() == YES) GuessNode (cur_node->left);
@@ -364,8 +352,29 @@ char* GetInput (char* buffer)
 }
 
 
-void SayWords ()
+void SayWords (char* temp, ...)
 {
+    char message[MAX_MESSAGE_LEN] = "";
+    char message_tmp[MAX_MESSAGE_LEN] = "";
+
+    va_list params;
+    va_start (params, temp);
+
+
+    vsprintf (message, temp, params);
+    printf ("%s\n", message);
+
+    sprintf (message_tmp, "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\"> \
+                    <voice name=\"en-US-TonyNeural\">                         \
+                    %s                                                                                 \
+                    </voice>                                                               \
+                    </speak>", message); 
+
+    printf ("%s\n", message_tmp);
+
+    txSpeak (message_tmp);
+
+    va_end (params);
 
 }
 

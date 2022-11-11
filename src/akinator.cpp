@@ -1,34 +1,35 @@
 #define TX_USE_SPEAK  // May the god save us.
-#include "TXLib.h"
+// #include "TXLib.h"
+/**
 #define txSpeak(X)  txSpeak( "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\">"  \
-                    "<voice name=\"zh-CN-XiaomoNeural\">"                                                                 \
+                    "<voice name=\"zh-CN-XiaomoNeural\">"                                                                \
                     X                                                                                                    \
                     "</voice>"                                                                                           \
-                    "</speak>");            
-
+                    "</speak>");           */ 
 
 #include "akinator.h"
 
 int main()
 {
-    txSpeak ("You missed the door letherman");
+    // txSpeak ("You missed the door, letherman");
 
     node* root = GetTreeRoot();
 
     StartGame (root);
 
-    SaveProgress(root);
+    SaveProgress (root);
 
     DestructTree (root);
 }
 
 
-
 node* GetTreeRoot ()
 {
-    FILE* tree_data = get_file ("data/tree.txt", "r");
+    FILE* tree_data = get_file ("data/tree.txt", "rb");
     
     node* root = BuildTree (tree_data);
+
+    DumpTree (root);
     
     fclose (tree_data);
 
@@ -75,7 +76,8 @@ node* DestructTree (node* root)
 }
 
 
-node* InsertNode (char name[], node* parent, int position)
+// Positions 
+node* InsertNode (char name[], node* parent, Positions position)
 {
     node* new_node = CreateNewNode();
     
@@ -122,8 +124,63 @@ node* FindNode (node* cur_node, const char name[])
     return nullptr;
 }
 
-//-----------------------Choosing the mode-------------------
+//------------------------Tree builder--------------------
 
+node* BuildTree (FILE* tree_info)
+{
+    char* buffer = GetTextBuffer (tree_info);
+    char* buffer_begin = buffer;
+
+    buffer += OFFSET;  // skipping '{ '
+
+    node* root = CreateNewNode();
+    sscanf (buffer, "%s", root->name);
+
+    buffer += strlen (root->name) + 1; // skipping name and space
+    
+    if (*buffer == '}') return root;
+    
+    root->left  = RecBuildNode (&buffer);
+    root->left->parent = root;
+
+    root->right = RecBuildNode (&buffer);
+    root->right->parent = root;
+
+    free (buffer_begin);
+
+    return root;
+}
+
+
+node* RecBuildNode (char** buffer)
+{
+    while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
+
+    node* new_node = CreateNewNode();
+    sscanf (*buffer, "%s", new_node->name);
+
+    *buffer += strlen (new_node->name) + 1;
+
+    if (**buffer == '}')
+    {
+        *buffer += OFFSET; // Skipping ' { '
+
+        return new_node;
+    }
+
+    new_node->left  = RecBuildNode (buffer);
+    new_node->left->parent = new_node;
+
+    new_node->right = RecBuildNode (buffer);
+    new_node->right->parent = new_node;
+
+    return new_node;
+}
+
+//------------------------Tree builder--------------------
+
+
+//-----------------------Choosing the mode-------------------
 
 void StartGame (node* root)
 {
@@ -135,6 +192,7 @@ void StartGame (node* root)
     
     
     bool is_exit = false;
+
     while (!is_exit)
     {
         printf ("I am choosing: ");
@@ -146,10 +204,12 @@ void StartGame (node* root)
         node* tmp_node_1 = nullptr;
         node* tmp_node_2 = nullptr;
 
-        switch (ans - TO_INT_OFFSET)
+        int cvt_to_num = 48;
+
+        switch (ans - cvt_to_num)
         {
             case GUESS:
-                GuessTheNode (root);
+                GuessNode (root);
                 break;
             
             case LISTING:
@@ -173,7 +233,7 @@ void StartGame (node* root)
                 break;
 
             default:
-                printf ("Unknown command %d, try again.\n", ans - TO_INT_OFFSET);
+                printf ("Unknown command %d, try again.\n", ans - cvt_to_num);
                 break;
         }
     }
@@ -183,10 +243,12 @@ void StartGame (node* root)
 node* GetNodeFromUser (node* root)
 {
     char tmp_name[MAX_NAME_LEN] = "";
+
     printf ("Enter the name of the node: ");
     scanf ("%s", tmp_name);
 
     node* tmp_node = FindNode (root, tmp_name);
+
     if (!tmp_node) printf ("There is no such node with name %s in the base!\n", tmp_name);
     
     return tmp_node;
@@ -197,7 +259,7 @@ node* GetNodeFromUser (node* root)
 
 //------------------------Guessing mode-----------------------
 
-int GuessTheNode (node* cur_node)
+void GuessNode (node* cur_node)
 {
     int ans = -1;
     
@@ -206,46 +268,55 @@ int GuessTheNode (node* cur_node)
         printf ("Ben, you guessed %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
-        if (ans == 1) printf ("Fuck yea\n");
-        else
-        {
-            AppendNewObject (cur_node);
-        }
+        if (GetAnswer() == YES) printf ("Fuck yea\n");
+        else                    AddNode (cur_node);
     }
     else 
     {
         printf ("Does you character %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
-        if (ans == 1) GuessTheNode (cur_node->left);
-        else
-        {
-            GuessTheNode (cur_node->right); 
-        }
+        if (GetAnswer() == YES) GuessNode (cur_node->left);
+        else                    GuessNode (cur_node->right); 
     }
-
-    return 0;
 }
 
 
-void AppendNewObject (node* cur_node)
+int GetAnswer ()
+{
+    char ans = -1;
+    scanf ("%c", &ans);
+
+    while (true)
+    {
+        if      (ans == 'Y' || ans == 'y') return 1;
+        else if (ans == 'N' || ans == 'n') return 0;
+        else
+        {
+            printf ("I can get answers only \"Y,y or N,n\"\n");
+            ClearBuffer ('\n');
+            scanf ("%c", &ans);
+        }
+    }
+}
+
+
+void AddNode (node* cur_node)
 {
     node* new_obj = CreateNewNode();
     node* new_question = CreateNewNode();
 
     printf ("Who it was?\n");
-    // GetInput (new_obj->name);
     scanf ("%s", new_obj->name);
 
     printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
-    // GetInput (new_question->name);
     scanf ("%s", new_question->name);
     
     node* top_node = cur_node->parent;
     cur_node->parent = new_question;
 
     if (top_node->left == cur_node) top_node->left = new_question;
-    else { top_node->right = new_question; }
+    else                            top_node->right = new_question;
     
     new_question->parent = top_node;
     new_question->left   = new_obj;
@@ -260,6 +331,7 @@ void AppendNewObject (node* cur_node)
 char* GetInput (char* buffer)
 {
     char* check_input = fgets(buffer, MAX_NAME_LEN, stdin);
+
     if (check_input == NULL) 
     {
         printf ("Bad input");
@@ -273,6 +345,7 @@ char* GetInput (char* buffer)
         printf("\n Invalid name, write it again. \n\n");
 
         check_input = fgets(buffer, MAX_NAME_LEN, stdin);
+
         if (check_input == NULL) return NULL;
 
         buffer[strlen(buffer)] = '\0';
@@ -302,14 +375,12 @@ void PrintObject (node* node_to_print)
 
     tmp_node = (node*) StackPop (&ancestors);
     printf ("%s.\n", tmp_node->name);
-
-    return;
 }
 
 
 Stack BuildAncestorsStack (node* cur_node)
 {
-    Stack ancestors = {};
+    Stack ancestors = {0};
     StackCtor (&ancestors, 10);
     StackPush (&ancestors, cur_node);
     
@@ -324,8 +395,6 @@ void AddAncestor (node* cur_node, Stack* ancestors)
     StackPush (ancestors, cur_node);
 
     if (cur_node->parent) AddAncestor (cur_node->parent, ancestors);
-
-    return;
 }
 
 //------------------------Object find mode. End-----------
@@ -343,10 +412,11 @@ void CompareObjects (node* obj1, node* obj2)
     Stack FirstAnc  = BuildAncestorsStack (obj1);
     Stack SecondAnc = BuildAncestorsStack (obj2);
 
-    while (FirstAnc.size != 1 && SecondAnc.size != 1)
+    while (FirstAnc.size != 2 && SecondAnc.size != 2)
     {
         node* trait1 = (node*) StackPop (&FirstAnc);
         node* trait2 = (node*) StackPop (&SecondAnc);
+
         if (trait1 == trait2)
         {
             printf ("Objects have in common trait: %s\n", trait1->name);
@@ -359,19 +429,22 @@ void CompareObjects (node* obj1, node* obj2)
         }
     }
 
-    if (FirstAnc.size == 1 && SecondAnc.size == 1) printf ("Objects are exactly the same!\n");
+    if (FirstAnc.size == 2 && SecondAnc.size == 2) 
+    {
+        printf ("Objects are different in trait %s!\n", obj1->parent->name);
+    }
     else if (FirstAnc.size > SecondAnc.size)
     {
         node* additional_trait = (node*) StackPop (&FirstAnc);
-        printf ("Object %s has additional trait %s\n", obj1->name, additional_trait->name);
+        printf ("Object %s has additional trait %s\n", 
+                 obj1->name, additional_trait->name);
     }
     else if (FirstAnc.size < SecondAnc.size)
     {
         node* additional_trait = (node*) StackPop (&SecondAnc);
-        printf ("Object %s has additional trait %s\n", obj2->name, additional_trait->name);
-    }
-    
-    return;
+        printf ("Object %s has additional trait %s\n", 
+                 obj2->name, additional_trait->name);
+    }   
 }
 
 //-----------------Object Comparison. End-----------------
@@ -382,6 +455,7 @@ void CompareObjects (node* obj1, node* obj2)
 void SaveProgress (node* root)
 {
     FILE* tree_data = get_file ("data/tree.txt", "w+");
+
     PrintPreOrder (root, tree_data);
     fclose (tree_data);
     DrawTree (root);
@@ -399,30 +473,24 @@ void DumpTree (node* node)
 
     if (node->left)  DumpTree (node->left);
     if (node->right) DumpTree (node->right);
-
-    return;
 }
 
 
-int PrintPreOrder (node* node, FILE* tree_data)
+void PrintPreOrder (node* node, FILE* tree_data)
 {
-    fprintf (tree_data, "{ %s ", node->name);
+    fprintf (tree_data, " { %s ", node->name);
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "} ");
-
-    return 1;
+    fprintf (tree_data, " } ");
 }
 
 
-int PrintPostOrder (node* node, FILE* tree_data)
+void PrintPostOrder (node* node, FILE* tree_data)
 {
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
     fprintf (tree_data, "{ %s ", node->name);
     fprintf (tree_data, "}");
-
-    return 1;
 } 
 
 
@@ -497,68 +565,5 @@ void RecursDrawConnections (node* node, FILE* dot_file)
 
 //------------------------Dump----------------------------
 
-//------------------------Tree builder--------------------
-
-node* BuildTree (FILE* tree_info)
-{
-    char* buffer = (char*) calloc (MAX_BUFFER_SIZE, sizeof (char));
-    char* buffer_begin = buffer;
-
-    fgets (buffer, MAX_BUFFER_SIZE, tree_info);
-
-    buffer += OFFSET;  // skipping '{ '
-
-    node* root = CreateNewNode();
-    sscanf (buffer, "%s", root->name);
-    // printf ("Root: %s \n", root->name);
-
-    buffer += strlen (root->name) + 1; // skipping name and space
-    if (*buffer == '}') return root;
-    else 
-    {
-        root->left  = RecBuildNode (&buffer);
-        root->left->parent = root;
-
-        root->right = RecBuildNode (&buffer);
-        root->right->parent = root;
-    }
-
-    free (buffer_begin);
-    // printf ("\nexiting");
-
-    return root;
-}
-
-
-node* RecBuildNode (char** buffer)
-{
-    while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
-
-    node* new_node = CreateNewNode();
-    sscanf (*buffer, "%s", new_node->name);
-
-    // printf (new_node->name);
-
-    *buffer += strlen (new_node->name) + 1;
-
-    if (**buffer == '}')
-    {
-        *buffer += OFFSET; // Skipping ' { '
-        return new_node;
-    }
-    else
-    {
-        new_node->left  = RecBuildNode (buffer);
-        new_node->left->parent = new_node;
-
-        new_node->right = RecBuildNode (buffer);
-        new_node->right->parent = new_node;
-    }
-
-    return new_node;
-}
-
-
-//------------------------Tree builder--------------------
 
 

@@ -37,7 +37,7 @@
 //!          программирования, чтобы облегчить ее установку и работу для начинающих.
 //!
 //! @note    Файл библиотеки большой и может компилироваться долго, поэтому обратите внимание на возможность
-//!          использования прекомпилированной версии в проектак с раздельной компиляцией. См. макрос @ref TX_COMPILED.
+//!          использования прекомпилированной версии в проектах с раздельной компиляцией. См. макрос @ref TX_COMPILED.
 //!          Также можно определить макрос @c WIN32_LEAN_AND_MEAN до включения @c TXLib.h в программу.
 //!
 //!       -# <a href=https://sourceforge.net/projects/txlib/files/latest/download>Скачайте</a> программу установки,
@@ -14138,7 +14138,10 @@ $1  Win32::CONSOLE_FONT_INFO font = {0, {8, 16}};
 $   _TX_CALL (Win32::GetCurrentConsoleFont, (GetStdHandle (STD_OUTPUT_HANDLE), false, &font));
 
 $   SIZE size = { font.dwFontSize.X, font.dwFontSize.Y };
-$   txGDI (Win32::GetTextExtentPoint32 (_txCanvas_BackBuf[1], "W", 1, &size), txDC());  //-V501
+    if (_txCanvas_BackBuf[1]) {$ txGDI (Win32::GetTextExtentPoint32 (_txCanvas_BackBuf[1], "W", 1, &size), txDC()); }  //-V501
+
+    if (size.cx == 0) {$ size.cx = 1; }
+    if (size.cy == 0) {$ size.cy = 1; }
 
 $   POINT sizeFont = { size.cx, size.cy };
 $   return sizeFont;
@@ -16223,10 +16226,7 @@ using ::std::wstring;
                                                                                                                    
                                                                                                                    
                                                                                                                    
-                                                                                                                   
-                                                                                           
-
-
+                                                                                               
 
 
 

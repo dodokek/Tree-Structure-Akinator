@@ -9,6 +9,8 @@
 
 #include "fileUtils.h"
 #include "stack.h"
+#include "stringUtils.h"
+
 
 //-----------------------------------------------
 
@@ -18,12 +20,16 @@ enum Positions
     RIGHT,
 };
 
+enum Answers
+{
+    NO,
+    YES,
+};
+
 
 enum Sizes
 {
     MAX_IMG_SRC_LEN = 100,
-    MAX_BUFFER_SIZE = 1000,
-    OFFSET = 2,
     STACK_INIT_CAP = 5,
     MAX_NAME_LEN = 100,
 };
@@ -31,13 +37,13 @@ enum Sizes
 
 enum PlayMode
 {
-    EXIT,
+    EXIT = 0,
     GUESS = 1,
-    LISTING,
-    COMPARISON,
-    TO_INT_OFFSET = 48,
+    LISTING = 2,
+    COMPARISON = 4,
 };
 
+const int OFFSET = 2;
 
 //-----------------------------------------------
 
@@ -48,6 +54,7 @@ struct node
 
     node* left;
     node* right;
+    // 
 
     char* name;
 };
@@ -60,31 +67,33 @@ struct node
 
 void StartGame (node* root);
 
+int GetAnswer ();
+
 node* GetNodeFromUser (node* root);
 
 node* GetTreeRoot ();
 
 void SaveProgress (node* root);
 
-node* InsertNode (char name[], node* parent, int position = LEFT);
+node* InsertNode (char name[], node* parent, Positions position = LEFT);
 
 node* CreateNewNode ();
 
 node* InitTreeRoot (char name[]);
 
-int GuessTheNode (node* node);
+void GuessNode (node* cur_node);
 
 char* GetInput (char* buffer);
 
-void AppendNewObject (node* cur_node);
+void AddNode (node* cur_node);
 
 void DumpTree (node* root);
 
 void DrawTree (node* root);
 
-int PrintPreOrder (node* node, FILE* tree_data);
+void PrintPreOrder (node* node, FILE* tree_data);
 
-int PrintPostOrder (node* node, FILE* tree_data);
+void PrintPostOrder (node* node, FILE* tree_data);
 
 void PrintObject (node* node_to_print);
 
@@ -106,7 +115,6 @@ node* RecBuildNode (char** buffer);
 
 node* DestructTree (node* root);
 
-void ClearBuffer();
 
 
 #endif

@@ -2,7 +2,6 @@
 #define CONFIG_H
 
 typedef long long int ll_i;
-typedef void* elem_t; 
 
 const int RIGHT_COCK = 0xDEADBABE;
 const int LEFT_COCK  = 0xCAFEBABE;

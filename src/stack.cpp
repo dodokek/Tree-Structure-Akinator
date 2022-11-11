@@ -1,5 +1,5 @@
 
-#include "stack.h"
+#include "../include/stack.h"
 
 
 void StackCtor_ (Stack* self, size_t capacity, const char* name, const char* filename, const char* funcname, int line)
@@ -11,7 +11,7 @@ void StackCtor_ (Stack* self, size_t capacity, const char* name, const char* fil
     
     )
 
-    self->data = (elem_t *) calloc (sizeof(elem_t), capacity);
+    self->data = (void* *) calloc (sizeof(void*), capacity);
 
     self->size = 0; 
     self->capacity = capacity;
@@ -38,7 +38,7 @@ void StackInfoCtor (Stack* self, const char* name, const char* filename, const c
 }
 
 
-elem_t StackPop (Stack* self)
+void* StackPop (Stack* self)
 {
     ON_DEBUG(
 
@@ -49,7 +49,7 @@ elem_t StackPop (Stack* self)
 
     StackResize (self, DECREASE);
 
-    elem_t tmp = self->data[self->size - 1];
+    void* tmp = self->data[self->size - 1];
 
     self->size--;
 
@@ -59,7 +59,7 @@ elem_t StackPop (Stack* self)
 }
 
 
-void StackPush (Stack* self, elem_t value)
+void StackPush (Stack* self, void* value)
 {
 
     ON_DEBUG(
@@ -81,7 +81,7 @@ void StackPush (Stack* self, elem_t value)
 
 void StackResize (Stack* self, int mode)
 { 
-    size_t elem_size = sizeof (elem_t);
+    size_t elem_size = sizeof (void*);
 
     switch (mode)
     {
@@ -104,7 +104,7 @@ void StackResize (Stack* self, int mode)
         return;
     }
 
-    self->data = (elem_t*) recalloc (self->data, self->capacity * elem_size);
+    self->data = (void**) recalloc (self->data, self->capacity * elem_size);
  
     ON_DEBUG( fill_array (self->data + self->size, self->data + self->capacity, POISON_NUM) );
     
@@ -213,7 +213,7 @@ intmax_t StackVerificator (Stack *self)
         tmp.subhash = 0;
 
         intmax_t hash = HashFunc (&tmp, sizeof (Stack));
-        intmax_t subhash = HashFunc (self->data, sizeof (elem_t) * self->capacity);
+        intmax_t subhash = HashFunc (self->data, sizeof (void*) * self->capacity);
 
         if (self->hash != hash)
         {
@@ -318,7 +318,7 @@ void DoRehash (Stack* self)
 
     self->hash = self->subhash = 0;                                           
     self->hash = HashFunc (self, sizeof (Stack));                             
-    self->subhash =  HashFunc (self->data, sizeof (elem_t) * self->capacity);    
+    self->subhash =  HashFunc (self->data, sizeof (void*) * self->capacity);    
 }
 
 
@@ -340,13 +340,13 @@ intmax_t HashFunc (void* ptr, size_t size)
 }
 
 
-elem_t min (elem_t elem1, elem_t elem2)
+void* Min (void* elem1, void* elem2)
 {
     return (elem1 < elem2) ? elem1 : elem2;
 }
 
 
-void fill_array (elem_t* cur_ptr, elem_t* end_ptr, elem_t filler)
+void fill_array (void** cur_ptr, void** end_ptr, void* filler)
 {
     while (cur_ptr < end_ptr)
     {

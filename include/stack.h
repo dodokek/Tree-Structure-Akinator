@@ -15,6 +15,7 @@
 
 #include "config.h"
 
+
 struct StackInfo
 {
     const char* name;
@@ -29,14 +30,14 @@ struct Stack
     #ifdef CANARY
     intmax_t left_cock;
     #endif
-
+    
     StackInfo stack_info;
 
     int size;
     int capacity; 
     intmax_t hash;
     intmax_t subhash;  
-    elem_t* data;
+    void** data;
 
     #ifdef CANARY
     intmax_t right_cock;
@@ -137,9 +138,9 @@ void PutDividers ();
 
 void Verificate (Stack* self);
 
-elem_t StackPop (Stack* self);
+void* StackPop (Stack* self);
 
-void StackPush (Stack* self, elem_t value);
+void StackPush (Stack* self, void* value);
 
 void StackResize (Stack* self, int mode);
 
@@ -149,9 +150,9 @@ intmax_t HashFunc (void* ptr, size_t size);
 
 void DoRehash (Stack* self);
 
-elem_t min (elem_t elem1, elem_t elem2);
+void* Min (void* elem1, void* elem2);
 
-void fill_array (elem_t* cur_ptr, elem_t* end_ptr, elem_t filler);
+void fill_array (void** cur_ptr, void** end_ptr, void* filler);
 
 bool is_valid (Stack *self);
 

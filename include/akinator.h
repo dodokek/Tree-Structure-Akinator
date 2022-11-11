@@ -40,7 +40,7 @@ enum PlayMode
     EXIT = 0,
     GUESS = 1,
     LISTING = 2,
-    COMPARISON = 4,
+    COMPARISON = 3,
 };
 
 const int OFFSET = 2;
@@ -69,13 +69,15 @@ void StartGame (node* root);
 
 int GetAnswer ();
 
+bool isNegativeAns (node* cur_node);
+
 node* GetNodeFromUser (node* root);
 
 node* GetTreeRoot ();
 
 void SaveProgress (node* root);
 
-node* InsertNode (char name[], node* parent, Positions position = LEFT);
+node* InsertNode (const char name[], node* parent, Positions position = LEFT);
 
 node* CreateNewNode ();
 

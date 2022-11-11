@@ -8,7 +8,7 @@ FILE* get_file (const char file_name[], const char* mode)
 
     if (tmp_file)
     {
-        // printf("File name is %s\n", file_name);
+        printf("File name is %s\n", file_name);
         return tmp_file;
     }
 

@@ -1,17 +1,21 @@
 #define TX_USE_SPEAK  // May the god save us.
-// #include "TXLib.h"
-/**
+
+#include "TXLib.h"
+
+/*
 #define txSpeak(X)  txSpeak( "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\">"  \
                     "<voice name=\"zh-CN-XiaomoNeural\">"                                                                \
                     X                                                                                                    \
                     "</voice>"                                                                                           \
-                    "</speak>");           */ 
+                    "</speak>");   
+*/        
+
 
 #include "akinator.h"
 
 int main()
 {
-    // txSpeak ("You missed the door, letherman");
+    txSpeak ("Ded, Nuhai bebru");
 
     node* root = GetTreeRoot();
 
@@ -77,7 +81,7 @@ node* DestructTree (node* root)
 
 
 // Positions 
-node* InsertNode (char name[], node* parent, Positions position)
+node* InsertNode (const char name[], node* parent, Positions position)
 {
     node* new_node = CreateNewNode();
     
@@ -136,6 +140,8 @@ node* BuildTree (FILE* tree_info)
     node* root = CreateNewNode();
     sscanf (buffer, "%s", root->name);
 
+    printf ("Root: %s\n", root->name);
+
     buffer += strlen (root->name) + 1; // skipping name and space
     
     if (*buffer == '}') return root;
@@ -158,6 +164,8 @@ node* RecBuildNode (char** buffer)
 
     node* new_node = CreateNewNode();
     sscanf (*buffer, "%s", new_node->name);
+
+    printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
 
     *buffer += strlen (new_node->name) + 1;
 
@@ -184,12 +192,14 @@ node* RecBuildNode (char** buffer)
 
 void StartGame (node* root)
 {
-    printf ("Welcome to Akinator, choose of of the following game modes\n"
-            "\tGuessing game - 1\n"
-            "\tObject listing - 2\n"
-            "\tObjects comparison - 3\n"
-            "\tType 0 to exit.\n");
+    char greetings[] = "Welcome to Akinator, choose of of the following game modes\n",
+                     "\tGuessing game - 1\n",
+                     "\tObject listing - 2\n",
+                     "\tObjects comparison - 3\n",
+                     "\tType 0 to exit.\n";
     
+    txSpeak (greetings);
+    txSpeak ("Sniffing bebraaaaa!");
     
     bool is_exit = false;
 
@@ -253,7 +263,6 @@ node* GetNodeFromUser (node* root)
     
     return tmp_node;
 }
-
 
 //-----------------------Choosing the mode. End--------------
 
@@ -354,6 +363,12 @@ char* GetInput (char* buffer)
     return buffer;
 }
 
+
+void SayWords ()
+{
+
+}
+
 //------------------------Guessing mode. End-----------------------
 
 
@@ -370,11 +385,27 @@ void PrintObject (node* node_to_print)
     while (ancestors.size != 1)
     {
         tmp_node = (node*) StackPop (&ancestors);
-        printf ("%s->", tmp_node->name);
+        if (isNegativeAns (tmp_node)) printf ("<not> %s->", tmp_node->name);
+        else   
+        {                    
+            printf ("%s->", tmp_node->name);
+        }
     }
 
     tmp_node = (node*) StackPop (&ancestors);
     printf ("%s.\n", tmp_node->name);
+}
+
+bool isNegativeAns (node* cur_node)
+{
+    if (!(cur_node->parent)) return false;
+
+    // printf ("I am %s, %p My parent is %p he calls %p\n",
+    //         cur_node->name, cur_node, cur_node->parent, cur_node->parent->left);
+
+    if (cur_node->parent->right == cur_node) return true;
+
+    return false;
 }
 
 
@@ -478,10 +509,10 @@ void DumpTree (node* node)
 
 void PrintPreOrder (node* node, FILE* tree_data)
 {
-    fprintf (tree_data, " { %s ", node->name);
+    fprintf (tree_data, "{ %s ", node->name);
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, " } ");
+    fprintf (tree_data, "} ");
 }
 
 

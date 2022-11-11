@@ -30,7 +30,7 @@ int separate_lines (Text *MainText)
         {                                                                                    //\n
             if (cur_len > 1) // ignore "\n"
             {
-                MainText->lines_array[lines_indx].begin_ptr = cur_ptr - cur_len + 1;
+                MainText->lines_array[lines_indx].begin = cur_ptr - cur_len + 1;
                 MainText->lines_array[lines_indx].length    = cur_len;
                 *cur_ptr = '\0';
                 lines_indx++;
@@ -68,7 +68,7 @@ void write_result_in_file (Text *MainText, FILE* output_file)
 {
     for (int i = 0; i < MainText->lines_amount; i++)
     {
-        fputs (MainText->lines_array[i].begin_ptr, output_file);
+        fputs (MainText->lines_array[i].begin, output_file);
         fputc ('\n', output_file);
     }
 }
@@ -76,28 +76,26 @@ void write_result_in_file (Text *MainText, FILE* output_file)
 
 void print_lines (Line lines_array[], int lines_amount)
 {
-
     assert (lines_array != NULL && lines_amount > 0);
     for (int i = 0; i < lines_amount; i++)
     {
-        //printf("%.*s", lines_array[i].length, lines_array[i].begin_ptr);
+        //printf("%.*s", lines_array[i].length, lines_array[i].begin);
         //printf ("Line length %d\n", lines_array[i].length);
-        puts (lines_array[i].begin_ptr);
+        puts (lines_array[i].begin);
 
     }
 }
 
 
 void trim_left (Text *MainText)
-
 {
     printf ("Lines amount: %d\n", MainText->lines_amount);
 
     for (int i = 0; i < (MainText->lines_amount); i++)
     {
-        while (*(MainText->lines_array[i].begin_ptr) == ' ' || *(MainText->lines_array[i].begin_ptr) == 9)
+        while (*(MainText->lines_array[i].begin) == ' ' || *(MainText->lines_array[i].begin) == '\n')
         {
-            MainText->lines_array[i].begin_ptr++;
+            MainText->lines_array[i].begin++;
         }
     }
 }

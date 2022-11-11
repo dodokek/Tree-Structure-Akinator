@@ -15,7 +15,7 @@
 
 struct Line
 {
-    char* begin_ptr;
+    char* begin;
     int   length;
 };
 

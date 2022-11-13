@@ -119,60 +119,118 @@ node* FindNode (node* cur_node, const char name[])
 
 //------------------------Tree builder--------------------
 
+// node* BuildTree (FILE* tree_info)
+// {
+//     char* buffer = GetTextBuffer (tree_info);
+//     char* buffer_begin = buffer;
+
+//     buffer += OFFSET;  // skipping '{ '
+
+//     node* root = CreateNewNode();
+//     sscanf (buffer, "%s", root->name);
+
+//     printf ("Root: %s\n", root->name);
+
+//     buffer += strlen (root->name) + 1; // skipping name and space
+    
+//     if (*buffer == '}') return root;
+    
+//     root->left  = RecBuildNode (&buffer);
+//     root->left->parent = root;
+
+//     root->right = RecBuildNode (&buffer);
+//     root->right->parent = root;
+
+//     free (buffer_begin);
+
+//     return root;
+// }
+
 node* BuildTree (FILE* tree_info)
 {
-    char* buffer = GetTextBuffer (tree_info);
-    char* buffer_begin = buffer;
+    Text input = {};
+    GetTreeObjects (&input, tree_info);
+    int obj_counter = 1;
 
-    buffer += OFFSET;  // skipping '{ '
+    for (int i = 0; i < input.lines_amount; i++)
+    {
+        printf ("Got line %s \n ", input.objects[i].begin);
+    }
 
     node* root = CreateNewNode();
-    sscanf (buffer, "%s", root->name);
+    root->name = input.objects[obj_counter].begin;
+    printf ("Root: %s \n ", root->name);
+    obj_counter++;
 
-    printf ("Root: %s\n", root->name);
+    if (*input.objects[obj_counter].begin == '}') return root;
 
-    buffer += strlen (root->name) + 1; // skipping name and space
-    
-    if (*buffer == '}') return root;
-    
-    root->left  = RecBuildNode (&buffer);
+    obj_counter++;
+    root->left  = RecBuildNode (&input, &obj_counter);
     root->left->parent = root;
 
-    root->right = RecBuildNode (&buffer);
+    root->right = RecBuildNode (&input, &obj_counter);
     root->right->parent = root;
-
-    free (buffer_begin);
 
     return root;
 }
 
 
-node* RecBuildNode (char** buffer)
+node* RecBuildNode (Text* input, int* obj_counter)
 {
-    while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
-
-    node* new_node = CreateNewNode();
-    sscanf (*buffer, "%s", new_node->name);
-
-    // printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
-
-    *buffer += strlen (new_node->name) + 1;
-
-    if (**buffer == '}')
+    while (*input->objects[*obj_counter].begin == '{' || *input->objects[*obj_counter].begin == '}')
     {
-        *buffer += OFFSET; // Skipping ' { '
+        (*obj_counter)++; // skips all unneeded brackets
+    }
+    
+    node* new_node = CreateNewNode();
+    new_node->name = input->objects[*obj_counter].begin;
 
+    printf ("Got node %s \n ", new_node->name);
+
+    (*obj_counter)++;
+
+    if (*input->objects[*obj_counter].begin == '}')
+    {
+        (*obj_counter)++; // skips '}'
         return new_node;
     }
 
-    new_node->left  = RecBuildNode (buffer);
+    new_node->left = RecBuildNode (input, obj_counter);
     new_node->left->parent = new_node;
 
-    new_node->right = RecBuildNode (buffer);
+    new_node->right = RecBuildNode (input, obj_counter);
     new_node->right->parent = new_node;
 
     return new_node;
 }
+
+
+// node* RecBuildNode (char** buffer)
+// {
+//     while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
+
+//     node* new_node = CreateNewNode();
+//     sscanf (*buffer, "%s", new_node->name);
+
+//     // printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
+
+//     *buffer += strlen (new_node->name) + 1;
+
+//     if (**buffer == '}')
+//     {
+//         *buffer += OFFSET; // Skipping ' { '
+
+//         return new_node;
+//     }
+
+//     new_node->left  = RecBuildNode (buffer);
+//     new_node->left->parent = new_node;
+
+//     new_node->right = RecBuildNode (buffer);
+//     new_node->right->parent = new_node;
+
+//     return new_node;
+// }
 
 //------------------------Tree builder--------------------
 
@@ -507,10 +565,10 @@ void DumpTree (node* node)
 {
     assert (node);
 
-    // printf ("Ptr[%p]", node);
-    // printf ("\tNode %s: left %p, right %p, parent %p\n",
-    //         node->name, node->left,
-    //         node->right, node->parent);
+    printf ("Ptr[%p] : \n", node);
+    printf ("\t Node %s: left %p, right %p, parent %p, %s\n",
+            node->name, node->left,
+            node->right, node->parent, node->name);
 
     if (node->left)  DumpTree (node->left);
     if (node->right) DumpTree (node->right);
@@ -519,10 +577,10 @@ void DumpTree (node* node)
 
 void PrintPreOrder (node* node, FILE* tree_data)
 {
-    fprintf (tree_data, "{ %s ", node->name);
+    fprintf (tree_data, "{\n%s", node->name);
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "} ");
+    fprintf (tree_data, "}\n");
 }
 
 
@@ -530,8 +588,8 @@ void PrintPostOrder (node* node, FILE* tree_data)
 {
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "{ %s ", node->name);
-    fprintf (tree_data, "}");
+    fprintf (tree_data, "{\n%s", node->name);
+    fprintf (tree_data, "}\n");
 } 
 
 

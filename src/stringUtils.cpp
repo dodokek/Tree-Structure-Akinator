@@ -2,11 +2,23 @@
 #include "stringUtils.h"
 
 
-void calloc_lines_array (Text *MainText)
+void GetTreeObjects (Text* MainText, FILE* input_file)
+{
+    read_file (input_file, MainText);
+
+    calloc_objects (MainText);
+
+    separate_lines (MainText);
+
+    trim_left (MainText);    
+}
+
+
+void calloc_objects (Text *MainText)
 {
     assert (MainText->buffer != nullptr);
 
-    MainText->lines_array = (Line*) calloc (sizeof(Line), count_lines (MainText->buffer, MainText->symbols_amount));
+    MainText->objects = (Line*) calloc (sizeof(Line), count_lines (MainText->buffer, MainText->symbols_amount));
 
     return;
 }
@@ -14,7 +26,7 @@ void calloc_lines_array (Text *MainText)
 
 int separate_lines (Text *MainText)
 {
-    assert (MainText->buffer != nullptr && MainText->lines_array != NULL && MainText->symbols_amount > 0);
+    assert (MainText->buffer != nullptr && MainText->objects != NULL && MainText->symbols_amount > 0);
 
     int lines_indx = 0, cur_len = 0;
 
@@ -30,8 +42,9 @@ int separate_lines (Text *MainText)
         {                                                                                    //\n
             if (cur_len > 1) // ignore "\n"
             {
-                MainText->lines_array[lines_indx].begin = cur_ptr - cur_len + 1;
-                MainText->lines_array[lines_indx].length    = cur_len;
+                MainText->objects[lines_indx].begin = cur_ptr - cur_len + 1;
+
+                MainText->objects[lines_indx].length    = cur_len;
                 *cur_ptr = '\0';
                 lines_indx++;
             }
@@ -57,7 +70,7 @@ int count_lines (char *buffer, int symbols_read)
     for (; cur_ptr != end_ptr; cur_ptr++)
     {
         if (*cur_ptr == '\n') line_counter++;
-        printf("%c", *cur_ptr);
+        // printf("%c", *cur_ptr);
     }
 
     return line_counter;
@@ -68,20 +81,20 @@ void write_result_in_file (Text *MainText, FILE* output_file)
 {
     for (int i = 0; i < MainText->lines_amount; i++)
     {
-        fputs (MainText->lines_array[i].begin, output_file);
+        fputs (MainText->objects[i].begin, output_file);
         fputc ('\n', output_file);
     }
 }
 
 
-void print_lines (Line lines_array[], int lines_amount)
+void print_lines (Line objects[], int lines_amount)
 {
-    assert (lines_array != NULL && lines_amount > 0);
+    assert (objects != NULL && lines_amount > 0);
     for (int i = 0; i < lines_amount; i++)
     {
-        //printf("%.*s", lines_array[i].length, lines_array[i].begin);
-        //printf ("Line length %d\n", lines_array[i].length);
-        puts (lines_array[i].begin);
+        //printf("%.*s", objects[i].length, objects[i].begin);
+        //printf ("Line length %d\n", objects[i].length);
+        puts (objects[i].begin);
 
     }
 }
@@ -89,13 +102,13 @@ void print_lines (Line lines_array[], int lines_amount)
 
 void trim_left (Text *MainText)
 {
-    printf ("Lines amount: %d\n", MainText->lines_amount);
+    // printf ("Lines amount: %d\n", MainText->lines_amount);
 
     for (int i = 0; i < (MainText->lines_amount); i++)
     {
-        while (*(MainText->lines_array[i].begin) == ' ' || *(MainText->lines_array[i].begin) == '\n')
+        while (*(MainText->objects[i].begin) == ' ' || *(MainText->objects[i].begin) == '\n')
         {
-            MainText->lines_array[i].begin++;
+            MainText->objects[i].begin++;
         }
     }
 }
@@ -114,10 +127,10 @@ char* GetTextBuffer (FILE* file)
 }
 
 
-void TextDestr (Text *self)
+void InputDtor (Text *self)
 {
     free (self->buffer);
-    free (self->lines_array);
+    free (self->objects);
 }
 
 
@@ -127,8 +140,16 @@ void ClearBuffer (char stop_sym)
 }
 
 
+int read_file (FILE* file, Text *MainText)
+{
+    assert (file != nullptr);
 
+    fseek (file, 0L, SEEK_END);
+    int file_len = ftell (file);
+    fseek (file, 0L, SEEK_SET);
 
+    MainText->buffer = (char*) calloc(sizeof(char), file_len);
+    MainText->symbols_amount = fread (MainText->buffer, sizeof(char), file_len, file);
 
-
-
+    return 1;
+}

@@ -117,7 +117,7 @@ node* FindNode (node* cur_node, const char name[]);
 
 node* BuildTree (FILE* tree_info);
 
-node* RecBuildNode (char** buffer);
+node* RecBuildNode (Text* input, int* obj_counter);
 
 node* DestructTree (node* root);
 

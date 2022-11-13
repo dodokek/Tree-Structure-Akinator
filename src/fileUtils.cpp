@@ -17,4 +17,3 @@ FILE* get_file (const char file_name[], const char* mode)
     return nullptr;
 }
 
-

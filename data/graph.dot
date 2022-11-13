@@ -8,78 +8,30 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node00000290369e2990[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
+    Node00000242ea7e3f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
  
-Node00000290369e3f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SucksDick"] 
+Node00000242ea7e3940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Bebra"] 
  
-Node00000290369e3940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="StudyInMAI"] 
+Node00000242ea80e820[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Impostor"] 
  
-Node00000290369e3970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="FiveInchDick"] 
+Node00000242ea80dd40[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SussyBaka"] 
  
-Node0000029034fd7b10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="MishkFreddie"] 
+Node00000242ea7e3970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Amongus"] 
  
-Node0000029034fd7bb0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Dolbaeb"] 
+Node00000242e91b7b10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sus"] 
  
-Node0000029034fd7c50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cool"] 
+Node00000242e91b7bb0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="NotBebra"] 
  
-Node0000029034fd7cf0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SuperPerec"] 
+Node00000242e91b7c50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
  
-Node0000029034fd7d90[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
+Node00000242e91b7cf0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
  
-Node0000029034fd7e30[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Zhenya"] 
- 
-Node0000029036a10e40[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="SucksAlotofdiscks"] 
- 
-Node0000029036a10cc0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="AverageMireaStudent"] 
- 
-Node0000029034fd7ed0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
- 
-Node0000029034fd7f70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Govnovoder"] 
- 
-Node0000029034fd8010[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="lox"] 
- 
-Node0000029034fd8430[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="ya"] 
- 
-Node0000029034fd8340[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Krestena"] 
- 
-Node0000029034fd8400[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Arcadiy"] 
- 
-Node0000029034fd8280[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="CumsAlot"] 
- 
-Node0000029034fd8100[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vitalik"] 
- 
-Node0000029034fd8460[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Coder"] 
- 
-Node0000029034fd81c0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Roma"] 
- 
-Node0000029034fd8370[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Joe"] 
- 
-Node0000029034fd83d0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Obama"] 
- 
-Node0000029034fd81f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sashka"] 
- 
-Node00000290369e2990->Node00000290369e3f80
-Node00000290369e3f80->Node00000290369e3940
-Node00000290369e3940->Node00000290369e3970
-Node00000290369e3970->Node0000029034fd7b10
-Node00000290369e3970->Node0000029034fd7bb0
-Node00000290369e3940->Node0000029034fd7c50
-Node0000029034fd7c50->Node0000029034fd7cf0
-Node0000029034fd7cf0->Node0000029034fd7d90
-Node0000029034fd7cf0->Node0000029034fd7e30
-Node0000029034fd7c50->Node0000029036a10e40
-Node0000029036a10e40->Node0000029036a10cc0
-Node0000029036a10e40->Node0000029034fd7ed0
-Node00000290369e3f80->Node0000029034fd7f70
-Node0000029034fd7f70->Node0000029034fd8010
-Node0000029034fd8010->Node0000029034fd8430
-Node0000029034fd8010->Node0000029034fd8340
-Node0000029034fd7f70->Node0000029034fd8400
-Node00000290369e2990->Node0000029034fd8280
-Node0000029034fd8280->Node0000029034fd8100
-Node0000029034fd8280->Node0000029034fd8460
-Node0000029034fd8460->Node0000029034fd81c0
-Node0000029034fd8460->Node0000029034fd8370
-Node0000029034fd8370->Node0000029034fd83d0
-Node0000029034fd8370->Node0000029034fd81f0
+Node00000242ea7e3f80->Node00000242ea7e3940
+Node00000242ea7e3940->Node00000242ea80e820
+Node00000242ea80e820->Node00000242ea80dd40
+Node00000242ea80e820->Node00000242ea7e3970
+Node00000242ea7e3940->Node00000242e91b7b10
+Node00000242ea7e3f80->Node00000242e91b7bb0
+Node00000242e91b7bb0->Node00000242e91b7c50
+Node00000242e91b7bb0->Node00000242e91b7cf0
 }

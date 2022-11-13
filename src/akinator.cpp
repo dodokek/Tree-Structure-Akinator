@@ -154,7 +154,7 @@ node* RecBuildNode (char** buffer)
     node* new_node = CreateNewNode();
     sscanf (*buffer, "%s", new_node->name);
 
-    printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
+    // printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
 
     *buffer += strlen (new_node->name) + 1;
 
@@ -187,7 +187,7 @@ void StartGame (node* root)
                      \tObjects comparison - 3\n\
                      \tType 0 to exit.\n";
     
-    SayWords (greetings);
+    printf (greetings);
     
     bool is_exit = false;
 
@@ -226,12 +226,12 @@ void StartGame (node* root)
                 break;
 
             case EXIT:
-                printf ("Thanks for playing\n");
+                SayWords ("Thanks for playing\n");
                 is_exit = true;
                 break;
 
             default:
-                printf ("Unknown command %d, try again.\n", ans - cvt_to_num);
+                SayWords ("Unknown command %d, try again.\n", ans - cvt_to_num);
                 break;
         }
     }
@@ -247,7 +247,7 @@ node* GetNodeFromUser (node* root)
 
     node* tmp_node = FindNode (root, tmp_name);
 
-    if (!tmp_node) printf ("There is no such node with name %s in the base!\n", tmp_name);
+    if (!tmp_node) SayWords ("There is no such node with name %s in the base!\n", tmp_name);
     
     return tmp_node;
 }
@@ -265,7 +265,7 @@ void GuessNode (node* cur_node)
         SayWords ("Ben, you guessed %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
-        if (GetAnswer() == YES) printf ("Fuck yea\n");
+        if (GetAnswer() == YES) SayWords ("Fuck yea\n");
         else                    AddNode (cur_node);
     }
     else 
@@ -370,8 +370,6 @@ void SayWords (char* temp, ...)
                     </voice>                                                               \
                     </speak>", message); 
 
-    printf ("%s\n", message_tmp);
-
     txSpeak (message_tmp);
 
     va_end (params);
@@ -385,7 +383,7 @@ void SayWords (char* temp, ...)
 
 void PrintObject (node* node_to_print)
 {
-    printf ("Characteristics of object %s:", node_to_print->name);
+    SayWords ("Characteristics of object %s:", node_to_print->name);
     
     Stack ancestors = BuildAncestorsStack (node_to_print);    
 
@@ -394,15 +392,15 @@ void PrintObject (node* node_to_print)
     while (ancestors.size != 1)
     {
         tmp_node = (node*) StackPop (&ancestors);
-        if (isNegativeAns (tmp_node)) printf ("<not> %s->", tmp_node->name);
+        if (isNegativeAns (tmp_node)) SayWords ("NOT %s ", tmp_node->name);
         else   
         {                    
-            printf ("%s->", tmp_node->name);
+            SayWords ("%s ", tmp_node->name);
         }
     }
 
     tmp_node = (node*) StackPop (&ancestors);
-    printf ("%s.\n", tmp_node->name);
+    SayWords ("%s.\n", tmp_node->name);
 }
 
 bool isNegativeAns (node* cur_node)
@@ -459,11 +457,11 @@ void CompareObjects (node* obj1, node* obj2)
 
         if (trait1 == trait2)
         {
-            printf ("Objects have in common trait: %s\n", trait1->name);
+            SayWords ("Objects have in common trait: %s\n", trait1->name);
         }
         else
         {
-            printf ("Objects have difference in traits: Node %s has %s, when Node %s has %s.\n",
+            SayWords ("Objects have difference in traits: Node %s has %s, when Node %s has %s.\n",
                     obj1->name, trait1->name, obj2->name, trait2->name);
             return;
         }
@@ -506,10 +504,10 @@ void DumpTree (node* node)
 {
     assert (node);
 
-    printf ("Ptr[%p]", node);
-    printf ("\tNode %s: left %p, right %p, parent %p\n",
-            node->name, node->left,
-            node->right, node->parent);
+    // printf ("Ptr[%p]", node);
+    // printf ("\tNode %s: left %p, right %p, parent %p\n",
+    //         node->name, node->left,
+    //         node->right, node->parent);
 
     if (node->left)  DumpTree (node->left);
     if (node->right) DumpTree (node->right);

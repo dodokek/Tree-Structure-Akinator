@@ -18,7 +18,7 @@ int main()
 
 node* GetTreeRoot ()
 {
-    FILE* tree_data = get_file ("data/tree.txt", "rb");
+    FILE* tree_data = get_file ("data/tree.txt", "r");
     
     node* root = BuildTree (tree_data);
 
@@ -577,7 +577,7 @@ void DumpTree (node* node)
 
 void PrintPreOrder (node* node, FILE* tree_data)
 {
-    fprintf (tree_data, "{\n%s", node->name);
+    fprintf (tree_data, "{\n%s\n", node->name);
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
     fprintf (tree_data, "}\n");
@@ -588,7 +588,7 @@ void PrintPostOrder (node* node, FILE* tree_data)
 {
     if (node->left)  PrintPreOrder (node->left,  tree_data);
     if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "{\n%s", node->name);
+    fprintf (tree_data, "{\n%s\n", node->name);
     fprintf (tree_data, "}\n");
 } 
 

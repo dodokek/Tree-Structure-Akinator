@@ -383,24 +383,24 @@ void SayWords (char* temp, ...)
 
 void PrintObject (node* node_to_print)
 {
-    SayWords ("Characteristics of object %s:", node_to_print->name);
+    printf ("Characteristics of object %s:", node_to_print->name);
     
     Stack ancestors = BuildAncestorsStack (node_to_print);    
 
     node* tmp_node = nullptr;
 
-    while (ancestors.size != 1)
+    while (ancestors.size != 0)
     {
         tmp_node = (node*) StackPop (&ancestors);
-        if (isNegativeAns (tmp_node)) SayWords ("NOT %s ", tmp_node->name);
+        if (isNegativeAns (tmp_node)) SayWords ("NOT %s - ", tmp_node->name);
         else   
         {                    
-            SayWords ("%s ", tmp_node->name);
+            printf ("%s - ", tmp_node->name);
         }
     }
 
-    tmp_node = (node*) StackPop (&ancestors);
-    SayWords ("%s.\n", tmp_node->name);
+    // tmp_node = (node*) StackPop (&ancestors);
+    // SayWords ("%s.\n", tmp_node->name);
 }
 
 bool isNegativeAns (node* cur_node)
@@ -450,26 +450,29 @@ void CompareObjects (node* obj1, node* obj2)
     Stack FirstAnc  = BuildAncestorsStack (obj1);
     Stack SecondAnc = BuildAncestorsStack (obj2);
 
-    while (FirstAnc.size != 2 && SecondAnc.size != 2)
+    node* trait1 = nullptr;
+    node* trait2 = nullptr;
+
+    while (FirstAnc.size != 1 && SecondAnc.size != 1)
     {
-        node* trait1 = (node*) StackPop (&FirstAnc);
-        node* trait2 = (node*) StackPop (&SecondAnc);
+        trait1 = (node*) StackPop (&FirstAnc);
+        trait2 = (node*) StackPop (&SecondAnc);
 
         if (trait1 == trait2)
         {
-            SayWords ("Objects have in common trait: %s\n", trait1->name);
+            printf ("They are same in: %s\n", trait1->name);
         }
         else
         {
-            SayWords ("Objects have difference in traits: Node %s has %s, when Node %s has %s.\n",
+            printf ("Oh, they are different: Node %s has %s, when Node %s has %s.\n",
                     obj1->name, trait1->name, obj2->name, trait2->name);
             return;
         }
     }
 
-    if (FirstAnc.size == 2 && SecondAnc.size == 2) 
+    if (FirstAnc.size == 1 && SecondAnc.size == 1) 
     {
-        printf ("Objects are different in trait %s!\n", obj1->parent->name);
+        printf ("Objects are different in trait %s!\n", trait1->parent->name);
     }
     else if (FirstAnc.size > SecondAnc.size)
     {

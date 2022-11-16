@@ -1,39 +1,45 @@
 {
 Animal
-{
-Bebra
-{
-TurboLol
-{
-Kek
-}
-{
-Cool
-{
-AlexVlasenko
-}
-{
-Amongus
-}
-}
-}
-{
-suck dick
-{
-kek lol
-}
-{
-Sus
-}
-}
-}
-{
-NotBebra
-{
-Sanya
-}
-{
-Vlados
-}
-}
+	{
+	Bebra
+		{
+		TurboLol
+			{
+			Kek
+			}
+			{
+			Cool
+				{
+				AlexVlasenko
+				}
+				{
+				Hehe coo
+					{
+					Hoho oo
+					}
+					{
+					Amongus
+					}
+				}
+			}
+		}
+		{
+		Petushok
+			{
+			Sashok
+			}
+			{
+			Sus
+			}
+		}
+	}
+	{
+	NotBebra
+		{
+		Sanya
+		}
+		{
+		Vlados
+		}
+	}
 }

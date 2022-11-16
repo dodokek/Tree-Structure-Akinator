@@ -154,6 +154,7 @@ node* BuildTree (FILE* tree_info)
 
     for (int i = 0; i < input.lines_amount; i++)
     {
+        trim_left (&input);
         printf ("Got line %s \n ", input.objects[i].begin);
     }
 
@@ -565,22 +566,26 @@ void DumpTree (node* node)
 }
 
 
-void PrintPreOrder (node* node, FILE* tree_data)
+void PrintPreOrder (node* node, FILE* tree_data, int level)
 {
-    fprintf (tree_data, "{\n%s\n", node->name);
-    if (node->left)  PrintPreOrder (node->left,  tree_data);
-    if (node->right) PrintPreOrder (node->right, tree_data);
+    PrintTabs (level, tree_data);
+    fprintf (tree_data, "{\n");
+
+    PrintTabs (level, tree_data);
+    fprintf (tree_data, "%s\n", node->name);
+
+    if (node->left)  PrintPreOrder (node->left,  tree_data, level + 1);
+    if (node->right) PrintPreOrder (node->right, tree_data, level + 1);
+
+    PrintTabs (level, tree_data);
     fprintf (tree_data, "}\n");
 }
 
 
-void PrintPostOrder (node* node, FILE* tree_data)
+void PrintTabs (int amount, FILE* file)
 {
-    if (node->left)  PrintPreOrder (node->left,  tree_data);
-    if (node->right) PrintPreOrder (node->right, tree_data);
-    fprintf (tree_data, "{\n%s\n", node->name);
-    fprintf (tree_data, "}\n");
-} 
+    for (int i = 0; i < amount; i++) putc ('\t', file);
+}
 
 
 #define _print(...) fprintf (dot_file, __VA_ARGS__)

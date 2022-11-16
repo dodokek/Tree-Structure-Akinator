@@ -99,6 +99,8 @@ void SayWords (char* templ, ...);
 
 void PrintPreOrder (node* node, FILE* tree_data, int level = 0);
 
+void RandomFrase (char* str);
+
 void PrintTabs (int amount, FILE* file);
 
 void PrintPostOrder (node* node, FILE* tree_data);

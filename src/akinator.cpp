@@ -303,7 +303,7 @@ node* GetNodeFromUser (node* root)
     char tmp_name[MAX_NAME_LEN] = "";
 
     SayWords ("Enter the name of the node: ");
-    scanf ("%s", tmp_name);
+    GetInput (tmp_name);
 
     node* tmp_node = FindNode (root, tmp_name);
 
@@ -330,7 +330,7 @@ void GuessNode (node* cur_node)
     }
     else 
     {
-        printf ("Does you character %s?\n", cur_node->name);
+        SayWords ("Does you character %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
         if (GetAnswer() == YES) GuessNode (cur_node->left);
@@ -350,7 +350,7 @@ int GetAnswer ()
         else if (ans == 'N' || ans == 'n') return 0;
         else
         {
-            printf ("I can get answers only \"Y,y or N,n\"\n");
+            SayWords ("I can get answers only \"Y,y or N,n\"\n");
             ClearBuffer ('\n');
             scanf ("%c", &ans);
         }
@@ -363,10 +363,10 @@ void AddNode (node* cur_node)
     node* new_obj = CreateNewNode();
     node* new_question = CreateNewNode();
 
-    printf ("Who it was?\n");
+    SayWords ("Who it was?\n");
     GetInput (new_obj->name);
 
-    printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
+    SayWords ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
     GetInput (new_question->name);
     
     node* top_node = cur_node->parent;
@@ -381,7 +381,7 @@ void AddNode (node* cur_node)
 
     new_obj->parent = new_question;
 
-    printf ("Objectf %s was added to base\n", new_obj->name);
+    SayWords ("Objectf %s was added to base\n", new_obj->name);
 }
 
 
@@ -432,7 +432,7 @@ void SayWords (char* temp, ...)
 
 void PrintObject (node* node_to_print)
 {
-    printf ("Characteristics of object %s:", node_to_print->name);
+    SayWords ("Characteristics of object %s:", node_to_print->name);
     
     Stack ancestors = BuildAncestorsStack (node_to_print);    
 
@@ -442,14 +442,19 @@ void PrintObject (node* node_to_print)
     {
         tmp_node = (node*) StackPop (&ancestors);
 
-        if (ancestors.size == 0)           printf ("%s.\n", tmp_node->name);
-        else if (isNegativeAns (tmp_node)) SayWords ("NOT %s - ", tmp_node->name);
-        else                               printf ("%s - ", tmp_node->name);
+        if (ancestors.size == 0) SayWords ("%s.\n", tmp_node->name);
+        else 
+        {
+            node* child = (node*) StackPop (&ancestors);
+            StackPush(&ancestors, child);
+
+            if (isNegativeAns (child)) SayWords  ("NOT %s - ", tmp_node->name);
+
+            else SayWords ("%s - ", tmp_node->name);
+        }
 
     }
 
-    // tmp_node = (node*) StackPop (&ancestors);
-    // SayWords ("%s.\n", tmp_node->name);
 }
 
 bool isNegativeAns (node* cur_node)
@@ -492,7 +497,7 @@ void CompareObjects (node* obj1, node* obj2)
 {
     if (obj1 == obj2)
     { 
-        printf ("Error. Comparison of the same object.");
+        SayWords ("Error. Comparison of the same object.");
         return;
     }
 
@@ -509,11 +514,11 @@ void CompareObjects (node* obj1, node* obj2)
 
         if (trait1 == trait2)
         {
-            printf ("They are same in: %s\n", trait1->name);
+           RandomFrase (trait1->name);
         }
         else
         {
-            printf ("Oh, they are different: Node %s has %s, when Node %s has %s.\n",
+            SayWords ("Oh, they are different: Node %s has %s, when Node %s has %s.\n",
                     obj1->name, trait1->name, obj2->name, trait2->name);
             return;
         }
@@ -521,20 +526,32 @@ void CompareObjects (node* obj1, node* obj2)
 
     if (FirstAnc.size == 1 && SecondAnc.size == 1) 
     {
-        printf ("Objects are different in trait %s!\n", trait1->parent->name);
+        SayWords ("Objects are different in trait %s!\n", trait1->parent->name);
     }
     else if (FirstAnc.size > SecondAnc.size)
     {
         node* additional_trait = (node*) StackPop (&FirstAnc);
-        printf ("Object %s has additional trait %s\n", 
+        SayWords ("Object %s has additional trait %s\n", 
                  obj1->name, additional_trait->name);
     }
     else if (FirstAnc.size < SecondAnc.size)
     {
         node* additional_trait = (node*) StackPop (&SecondAnc);
-        printf ("Object %s has additional trait %s\n", 
+        SayWords ("Object %s has additional trait %s\n", 
                  obj2->name, additional_trait->name);
     }   
+}
+
+
+void RandomFrase (char* str)
+{
+    static int super_random = 0;
+
+    if (super_random % 3 == 0) SayWords ("They are same in: %s\n", str);
+    if (super_random % 3 == 1) SayWords ("Also in: %s\n", str);
+    if (super_random % 3 == 2) SayWords ("Oh look, they are same in: %s\n", str);
+
+    super_random++;
 }
 
 //-----------------Object Comparison. End-----------------

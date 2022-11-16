@@ -266,6 +266,7 @@ void StartGame (node* root)
         {
             case GUESS:
                 GuessNode (root);
+                DrawTree  (root);
                 break;
             
             case LISTING:
@@ -328,7 +329,7 @@ void GuessNode (node* cur_node)
     }
     else 
     {
-        SayWords ("Does you character %s?\n", cur_node->name);
+        printf ("Does you character %s?\n", cur_node->name);
         scanf ("%d", &ans);
 
         if (GetAnswer() == YES) GuessNode (cur_node->left);
@@ -362,10 +363,10 @@ void AddNode (node* cur_node)
     node* new_question = CreateNewNode();
 
     printf ("Who it was?\n");
-    scanf ("%s", new_obj->name);
+    GetInput (new_obj->name);
 
     printf ("What's the difference between %s and %s?\n", new_obj->name, cur_node->name);
-    scanf ("%s", new_question->name);
+    GetInput (new_question->name);
     
     node* top_node = cur_node->parent;
     cur_node->parent = new_question;
@@ -385,27 +386,16 @@ void AddNode (node* cur_node)
 
 char* GetInput (char* buffer)
 {
-    char* check_input = fgets(buffer, MAX_NAME_LEN, stdin);
+    fflush (stdin);
 
-    if (check_input == NULL) 
-    {
-        printf ("Bad input");
-        return NULL;
+    gets (buffer);
+
+    if (strlen (buffer) == 0)
+    {    
+        gets (buffer);
     }
-
-    buffer[strlen(buffer) - 1] = '\0';
-
-    while (strlen(buffer) == 0) 
-    {
-        printf("\n Invalid name, write it again. \n\n");
-
-        check_input = fgets(buffer, MAX_NAME_LEN, stdin);
-
-        if (check_input == NULL) return NULL;
-
-        buffer[strlen(buffer)] = '\0';
-    }
-
+    
+    
     return buffer;
 }
 
@@ -420,7 +410,7 @@ void SayWords (char* temp, ...)
 
 
     vsprintf (message, temp, params);
-    printf ("%s\n", message);
+    printf ("%s", message);
 
     sprintf (message_tmp, "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\"> \
                     <voice name=\"en-US-TonyNeural\">                         \
@@ -450,11 +440,11 @@ void PrintObject (node* node_to_print)
     while (ancestors.size != 0)
     {
         tmp_node = (node*) StackPop (&ancestors);
-        if (isNegativeAns (tmp_node)) SayWords ("NOT %s - ", tmp_node->name);
-        else   
-        {                    
-            printf ("%s - ", tmp_node->name);
-        }
+
+        if (ancestors.size == 0)           printf ("%s.\n", tmp_node->name);
+        else if (isNegativeAns (tmp_node)) SayWords ("NOT %s - ", tmp_node->name);
+        else                               printf ("%s - ", tmp_node->name);
+
     }
 
     // tmp_node = (node*) StackPop (&ancestors);

@@ -8,30 +8,48 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node0000021969e53f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
+    Node00000229e4ec3940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
  
-Node0000021969e53940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Bebra"] 
+Node00000229e4ec29b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Bebra"] 
  
-Node0000021969e7d860[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="TurboLol"] 
+Node00000229e4ec3970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="TurboLol"] 
  
-Node0000021969e7d7d0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Kek"] 
+Node00000229e688b880[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="koko loko"] 
  
-Node0000021969e53970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Amongus"] 
+Node00000229e688b850[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="jaja jojo"] 
  
-Node0000021968697b10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sus"] 
+Node00000229e4ec3f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Kek"] 
  
-Node0000021968697bb0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="NotBebra"] 
+Node00000229e3707d20[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cool"] 
  
-Node0000021968697c50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
+Node00000229e3707dc0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="AlexVlasenko"] 
  
-Node0000021968697cf0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
+Node00000229e3707e60[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Amongus"] 
  
-Node0000021969e53f80->Node0000021969e53940
-Node0000021969e53940->Node0000021969e7d860
-Node0000021969e7d860->Node0000021969e7d7d0
-Node0000021969e7d860->Node0000021969e53970
-Node0000021969e53940->Node0000021968697b10
-Node0000021969e53f80->Node0000021968697bb0
-Node0000021968697bb0->Node0000021968697c50
-Node0000021968697bb0->Node0000021968697cf0
+Node00000229e3707f00[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="suck dick"] 
+ 
+Node00000229e3707fa0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="kek lol"] 
+ 
+Node00000229e3708040[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sus"] 
+ 
+Node00000229e37080e0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="NotBebra"] 
+ 
+Node00000229e3708180[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
+ 
+Node00000229e3708220[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
+ 
+Node00000229e4ec3940->Node00000229e4ec29b0
+Node00000229e4ec29b0->Node00000229e4ec3970
+Node00000229e4ec3970->Node00000229e688b880
+Node00000229e688b880->Node00000229e688b850
+Node00000229e688b880->Node00000229e4ec3f80
+Node00000229e4ec3970->Node00000229e3707d20
+Node00000229e3707d20->Node00000229e3707dc0
+Node00000229e3707d20->Node00000229e3707e60
+Node00000229e4ec29b0->Node00000229e3707f00
+Node00000229e3707f00->Node00000229e3707fa0
+Node00000229e3707f00->Node00000229e3708040
+Node00000229e4ec3940->Node00000229e37080e0
+Node00000229e37080e0->Node00000229e3708180
+Node00000229e37080e0->Node00000229e3708220
 }

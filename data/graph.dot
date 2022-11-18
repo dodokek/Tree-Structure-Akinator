@@ -8,54 +8,30 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node0000020efd283940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
+    Node0000020498943940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
  
-Node0000020efd283970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Bebra"] 
+Node0000020498943970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Super Coder"] 
  
-Node0000020efd283f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="TurboLol"] 
+Node0000020498942950[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sucks Dicks"] 
  
-Node0000020efd397d80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Kek"] 
+Node0000020498942980[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Chris"] 
  
-Node0000020efd397e20[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cool"] 
+Node00000204989429b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
  
-Node0000020efd2a7ae0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Dolbaeb"] 
+Node0000020497187cd0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
  
-Node0000020efd2a78a0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
+Node0000020497187d70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cute"] 
  
-Node0000020efd397ec0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="AlexVlasenko"] 
+Node0000020497187e10[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Victor"] 
  
-Node0000020efd397f60[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Hehe coo"] 
+Node0000020497187eb0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vovcheg"] 
  
-Node0000020efd398000[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Hoho oo"] 
- 
-Node0000020efd3980a0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Amongus"] 
- 
-Node0000020efd398140[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Petushok"] 
- 
-Node0000020efd3981e0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sashok"] 
- 
-Node0000020efd398280[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sus"] 
- 
-Node0000020efd398320[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="NotBebra"] 
- 
-Node0000020efd398530[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
- 
-Node0000020efd398500[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
- 
-Node0000020efd283940->Node0000020efd283970
-Node0000020efd283970->Node0000020efd283f80
-Node0000020efd283f80->Node0000020efd397d80
-Node0000020efd283f80->Node0000020efd397e20
-Node0000020efd397e20->Node0000020efd2a7ae0
-Node0000020efd2a7ae0->Node0000020efd2a78a0
-Node0000020efd2a7ae0->Node0000020efd397ec0
-Node0000020efd397e20->Node0000020efd397f60
-Node0000020efd397f60->Node0000020efd398000
-Node0000020efd397f60->Node0000020efd3980a0
-Node0000020efd283970->Node0000020efd398140
-Node0000020efd398140->Node0000020efd3981e0
-Node0000020efd398140->Node0000020efd398280
-Node0000020efd283940->Node0000020efd398320
-Node0000020efd398320->Node0000020efd398530
-Node0000020efd398320->Node0000020efd398500
+Node0000020498943940->Node0000020498943970
+Node0000020498943970->Node0000020498942950
+Node0000020498942950->Node0000020498942980
+Node0000020498942950->Node00000204989429b0
+Node0000020498943970->Node0000020497187cd0
+Node0000020498943940->Node0000020497187d70
+Node0000020497187d70->Node0000020497187e10
+Node0000020497187d70->Node0000020497187eb0
 }

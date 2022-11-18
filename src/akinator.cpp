@@ -119,32 +119,6 @@ node* FindNode (node* cur_node, const char name[])
 
 //------------------------Tree builder--------------------
 
-// node* BuildTree (FILE* tree_info)
-// {
-//     char* buffer = GetTextBuffer (tree_info);
-//     char* buffer_begin = buffer;
-
-//     buffer += OFFSET;  // skipping '{ '
-
-//     node* root = CreateNewNode();
-//     sscanf (buffer, "%s", root->name);
-
-//     printf ("Root: %s\n", root->name);
-
-//     buffer += strlen (root->name) + 1; // skipping name and space
-    
-//     if (*buffer == '}') return root;
-    
-//     root->left  = RecBuildNode (&buffer);
-//     root->left->parent = root;
-
-//     root->right = RecBuildNode (&buffer);
-//     root->right->parent = root;
-
-//     free (buffer_begin);
-
-//     return root;
-// }
 
 node* BuildTree (FILE* tree_info)
 {
@@ -178,10 +152,7 @@ node* BuildTree (FILE* tree_info)
 
 node* RecBuildNode (Text* input, int* obj_counter)
 {
-    while (*input->objects[*obj_counter].begin == '{' || *input->objects[*obj_counter].begin == '}')
-    {
-        (*obj_counter)++; // skips all unneeded brackets
-    }
+    SkipBrackets (input, obj_counter);
     
     node* new_node = CreateNewNode();
     new_node->name = input->objects[*obj_counter].begin;
@@ -206,32 +177,12 @@ node* RecBuildNode (Text* input, int* obj_counter)
 }
 
 
-// node* RecBuildNode (char** buffer)
-// {
-//     while (**buffer == '{' || **buffer == '}') *buffer += OFFSET;
+void SkipBrackets (Text* input, int* obj_counter)
+{
+    while (*input->objects[*obj_counter].begin == '{' || *input->objects[*obj_counter].begin == '}')
+        (*obj_counter)++;
+}
 
-//     node* new_node = CreateNewNode();
-//     sscanf (*buffer, "%s", new_node->name);
-
-//     // printf ("Got node %s, cur sign %c\n", new_node->name, **buffer);
-
-//     *buffer += strlen (new_node->name) + 1;
-
-//     if (**buffer == '}')
-//     {
-//         *buffer += OFFSET; // Skipping ' { '
-
-//         return new_node;
-//     }
-
-//     new_node->left  = RecBuildNode (buffer);
-//     new_node->left->parent = new_node;
-
-//     new_node->right = RecBuildNode (buffer);
-//     new_node->right->parent = new_node;
-
-//     return new_node;
-// }
 
 //------------------------Tree builder--------------------
 
@@ -242,9 +193,9 @@ void StartGame (node* root)
 {
     char greetings[] = "Welcome to Akinator, choose of of the following game modes\n\
                     \tGuessing game - 1\n\    
-                     \tObject listing - 2\n\
-                     \tObjects comparison - 3\n\
-                     \tType 0 to exit.\n";
+                    \tObject listing - 2\n\
+                    \tObjects comparison - 3\n\
+                    \tType 0 to exit.\n";
     
     printf (greetings);
     

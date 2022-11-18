@@ -101,6 +101,8 @@ void PrintPreOrder (node* node, FILE* tree_data, int level = 0);
 
 void RandomFrase (char* str);
 
+void SkipBrackets (Text* input, int* obj_counter);
+
 void PrintTabs (int amount, FILE* file);
 
 void PrintPostOrder (node* node, FILE* tree_data);

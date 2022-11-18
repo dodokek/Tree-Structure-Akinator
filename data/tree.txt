@@ -1,51 +1,27 @@
 {
 Animal
 	{
-	Bebra
+	Super Coder
 		{
-		TurboLol
+		Sucks Dicks
 			{
-			Kek
+			Chris
 			}
 			{
-			Cool
-				{
-				Dolbaeb
-					{
-					Vlados
-					}
-					{
-					AlexVlasenko
-					}
-				}
-				{
-				Hehe coo
-					{
-					Hoho oo
-					}
-					{
-					Amongus
-					}
-				}
+			Sanya
 			}
-		}
-		{
-		Petushok
-			{
-			Sashok
-			}
-			{
-			Sus
-			}
-		}
-	}
-	{
-	NotBebra
-		{
-		Sanya
 		}
 		{
 		Vlados
+		}
+	}
+	{
+	Cute
+		{
+		Victor
+		}
+		{
+		Vovcheg
 		}
 	}
 }

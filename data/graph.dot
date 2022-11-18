@@ -8,36 +8,48 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node000002aee3e63940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
+    Node000001e8f53029b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Animal"] 
  
-Node000002aee3e63970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Super Coder"] 
+Node000001e8f5303f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Super Coder"] 
  
-Node000002aee3e63f80[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sucks Dicks"] 
+Node000001e8f5303940[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sucks Dicks"] 
  
-Node000002aee26a7c50[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="No girlfriend"] 
+Node000001e8f5303970[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="No girlfriend"] 
  
-Node000002aee26a7cf0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Chris"] 
+Node000001e8f53f7d90[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Chris"] 
  
-Node000002aee26a7d90[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya Lobanov"] 
+Node000001e8f53f7e30[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya Lobanov"] 
  
-Node000002aee26a7e30[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
+Node000001e8f53d08a0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cooler than Sanya"] 
  
-Node000002aee26a7ed0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
+Node000001e8f53d0870[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Ded"] 
  
-Node000002aee26a7f70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cute"] 
+Node000001e8f53f7ed0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Sanya"] 
  
-Node000002aee26a8010[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Victor"] 
+Node000001e8f53f7f70[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Short cock"] 
  
-Node000002aee26a80b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vovcheg"] 
+Node000001e8f53f8010[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vlados"] 
  
-Node000002aee3e63940->Node000002aee3e63970
-Node000002aee3e63970->Node000002aee3e63f80
-Node000002aee3e63f80->Node000002aee26a7c50
-Node000002aee26a7c50->Node000002aee26a7cf0
-Node000002aee26a7c50->Node000002aee26a7d90
-Node000002aee3e63f80->Node000002aee26a7e30
-Node000002aee3e63970->Node000002aee26a7ed0
-Node000002aee3e63940->Node000002aee26a7f70
-Node000002aee26a7f70->Node000002aee26a8010
-Node000002aee26a7f70->Node000002aee26a80b0
+Node000001e8f53f80b0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Egorchik"] 
+ 
+Node000001e8f53f8150[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Cute"] 
+ 
+Node000001e8f53f81f0[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Victor"] 
+ 
+Node000001e8f53f8290[shape=rectangle, color="red", width=0.2, style="filled",fillcolor="lightblue", label="Vovcheg"] 
+ 
+Node000001e8f53029b0->Node000001e8f5303f80
+Node000001e8f5303f80->Node000001e8f5303940
+Node000001e8f5303940->Node000001e8f5303970
+Node000001e8f5303970->Node000001e8f53f7d90
+Node000001e8f5303970->Node000001e8f53f7e30
+Node000001e8f5303940->Node000001e8f53d08a0
+Node000001e8f53d08a0->Node000001e8f53d0870
+Node000001e8f53d08a0->Node000001e8f53f7ed0
+Node000001e8f5303f80->Node000001e8f53f7f70
+Node000001e8f53f7f70->Node000001e8f53f8010
+Node000001e8f53f7f70->Node000001e8f53f80b0
+Node000001e8f53029b0->Node000001e8f53f8150
+Node000001e8f53f8150->Node000001e8f53f81f0
+Node000001e8f53f8150->Node000001e8f53f8290
 }

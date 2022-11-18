@@ -18,7 +18,13 @@ Animal
 			}
 		}
 		{
-		Vlados
+		Short cock
+			{
+			Vlados
+			}
+			{
+			Egorchik
+			}
 		}
 	}
 	{

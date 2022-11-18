@@ -271,21 +271,26 @@ void GuessNode (node* cur_node)
 {
     int ans = -1;
     
-    if (!cur_node->left && !cur_node->right) 
+    while (true)
     {
-        SayWords ("Ben, you guessed %s?\n", cur_node->name);
-        scanf ("%d", &ans);
+        if (!cur_node->left && !cur_node->right) 
+        {
+            SayWords ("Ben, you guessed %s?\n", cur_node->name);
+            scanf ("%d", &ans);
 
-        if (GetAnswer() == YES) SayWords ("Fuck yea\n");
-        else                    AddNode (cur_node);
-    }
-    else 
-    {
-        SayWords ("Does you character %s?\n", cur_node->name);
-        scanf ("%d", &ans);
+            if (GetAnswer() == YES) SayWords ("Fuck yea\n");
+            else                    AddNode (cur_node);
 
-        if (GetAnswer() == YES) GuessNode (cur_node->left);
-        else                    GuessNode (cur_node->right); 
+            return;
+        }
+        else 
+        {
+            SayWords ("Does you character %s?\n", cur_node->name);
+            scanf ("%d", &ans);
+
+            if (GetAnswer() == YES) cur_node = cur_node->left;
+            else                    cur_node = cur_node->right; 
+        }
     }
 }
 
@@ -403,17 +408,14 @@ void PrintObject (node* node_to_print)
 
             else SayWords ("%s - ", tmp_node->name);
         }
-
     }
 
 }
 
+
 bool isNegativeAns (node* cur_node)
 {
     if (!(cur_node->parent)) return false;
-
-    // printf ("I am %s, %p My parent is %p he calls %p\n",
-    //         cur_node->name, cur_node, cur_node->parent, cur_node->parent->left);
 
     if (cur_node->parent->right == cur_node) return true;
 
